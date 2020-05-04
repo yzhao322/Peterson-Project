@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Login from "../../pages/Login";
-import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button, InputGroup} from "react-bootstrap";
+import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button} from "react-bootstrap";
 
 function Navbars() {
 
@@ -38,7 +38,7 @@ function Navbars() {
 
           {/* modal open button */}
           <Button onClick={() => { setModalIsOpen(true); handleShow() }}>Login</Button>
-          
+
         </Form>
 
       </Navbar.Collapse>
