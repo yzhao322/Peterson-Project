@@ -1,20 +1,16 @@
 import React from "react";
-import { Col, Row, Container } from "../components/Grid";
-import CreatePostForm from "../components/CreatePostForm";
-import PostsList from "../components/PostsList";
+import ProductList from "../components/ProductList";
+import Wrapper from "../components/Wrapper";
+import Header from "../components/Header";
+
 
 const Home = () => {
   return (
-    <Container fluid>
-      <Row>
-        <Col size="md-6">
-          <CreatePostForm />
-        </Col>
-        <Col size="md-6 sm-12">
-          <PostsList />
-        </Col>
-      </Row>
-    </Container>
+    <Wrapper>
+      <Header />
+      <br></br>
+     <ProductList />
+    </Wrapper>
   );
 };
 
