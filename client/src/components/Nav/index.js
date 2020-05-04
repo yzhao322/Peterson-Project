@@ -1,7 +1,18 @@
-import React from "react";
-import { NavDropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import React, { useState } from "react";
+
+import Login from "../../pages/Login";
+import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button, InputGroup} from "react-bootstrap";
 
 function Navbars() {
+
+  //modal - pop up window for log in 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  //modal end
+
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">Peterson</Navbar.Brand>
@@ -23,8 +34,26 @@ function Navbars() {
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-success">Search</Button>
+          <hr />
+
+          {/* modal open button */}
+          <Button onClick={() => { setModalIsOpen(true); handleShow() }}>Login</Button>
+          
         </Form>
+
       </Navbar.Collapse>
+
+      {/* modal window front end set up - body */}
+      <Modal isOpen={modalIsOpen} show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+      </Modal>
+      {/* modal end */}
+
     </Navbar>
   );
 }
