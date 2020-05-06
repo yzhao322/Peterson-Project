@@ -16,7 +16,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 1</small>
       </Card.Footer>
     </Card>
     <Card>
@@ -28,7 +28,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 2</small>
       </Card.Footer>
     </Card>
     <Card>
@@ -40,7 +40,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 3</small>
       </Card.Footer>
       </Card>
       </CardDeck>
@@ -55,7 +55,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 4</small>
       </Card.Footer>
     </Card>
     <Card>
@@ -67,7 +67,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 5</small>
       </Card.Footer>
     </Card>
     <Card>
@@ -79,7 +79,7 @@ function ProductList(){
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">$Price</small>
+        <small className="text-muted">Item 6</small>
       </Card.Footer>
     </Card>
       </CardDeck>

@@ -7,6 +7,7 @@ import Navbars from "./components/Nav";
 import Footer from "./components/Footer";
 import FavoritesList from "./pages/FavoritesList";
 import Login from "./pages/Login";
+import Product from "./pages/ProductList";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/Login" component={Login} />
+            <Route exact path="/product" component={Product} />
             <Route exact path="/favorites" component={FavoritesList} />
             <Route exact path="/posts/:id" component={Detail} />
             <Route component={NoMatch} />
