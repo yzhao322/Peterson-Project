@@ -11,12 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const newProduce = new Produce({
-    name: req.body.name,
-    quantity: req.body.quantity,
-    description: req.body.description,
-  });
-  newProduce.save().then((produce) => res.json(produce));
+  Produce.create(req.body).then((produce) => res.json(produce));
 });
 
 router.delete("/:id", (req, res) => {
