@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const produces = require("./routes/api/produces");
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -27,7 +28,8 @@ connection.once("open", () => {
 //   .catch((err) => console.log(err));
 
 app.use("/api/produces", produces);
+app.use("/api/users", users);
 
-const port = process.nextTick.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log(`Server started on ${port}`));
