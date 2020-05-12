@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const produces = require("./routes/api/produces");
+const order = require("./routes/api/order");
 const users = require("./routes/api/users");
 
 const app = express();
@@ -28,6 +29,7 @@ connection.once("open", () => {
 //   .catch((err) => console.log(err));
 
 app.use("/api/produces", produces);
+app.use("/api/order", order);
 app.use("/api/users", users);
 
 const port = process.env.PORT || 3001;

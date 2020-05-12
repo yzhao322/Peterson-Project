@@ -6,7 +6,6 @@ const Produce = require("../../models/produce");
 //get api/items
 router.get("/", (req, res) => {
   Produce.find()
-    .sort({ date: -1 })
     .then((produces) => res.json(produces));
 });
 
