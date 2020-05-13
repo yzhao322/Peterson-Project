@@ -1,24 +1,37 @@
 const express = require("express");
-
 const mongoose = require("mongoose");
-const routes = require("./routes");
+const bodyParser = require("body-parser");
+
+const produces = require("./routes/api/produces");
+const order = require("./routes/api/order");
+const users = require("./routes/api/users");
+
 const app = express();
-const PORT = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-// Add routes, both API and view
-app.use(routes);
+app.use(bodyParser.json());
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactcms");
+const db = require("./config/keys").mongoURI;
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+mongoose.connect(db, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
 });
+
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB connected");
+});
+
+// mongoose
+//   .connect(db)
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.log(err));
+
+app.use("/api/produces", produces);
+app.use("/api/order", order);
+app.use("/api/users", users);
+
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => console.log(`Server started on ${port}`));

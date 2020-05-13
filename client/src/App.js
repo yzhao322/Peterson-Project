@@ -6,10 +6,10 @@ import NoMatch from "./pages/NoMatch";
 import Navbars from "./components/Nav";
 import Footer from "./components/Footer";
 import FavoritesList from "./pages/FavoritesList";
+import ShoppingCart from "./pages/ShoppingCart";
 import Login from "./pages/Login";
 import Product from "./pages/ProductList";
 import ShoppingCart from "./pages/shopping-cart";
-
 
 function App() {
   return (
