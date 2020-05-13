@@ -10,6 +10,10 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use("/api/produces", produces);
+app.use("/api/order", order);
+app.use("/api/users", users);
+
 const db = require("./config/keys").mongoURI;
 
 mongoose.connect(db, {
@@ -28,9 +32,7 @@ connection.once("open", () => {
 //   .then(() => console.log("MongoDB connected"))
 //   .catch((err) => console.log(err));
 
-app.use("/api/produces", produces);
-app.use("/api/order", order);
-app.use("/api/users", users);
+
 
 const port = process.env.PORT || 3001;
 
