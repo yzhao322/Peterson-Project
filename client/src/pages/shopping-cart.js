@@ -5,7 +5,7 @@ import OrderSummary from "../components/OrderSummary";
 
 
 
-const ShoppingCart = () => {
+const ShopingCart = () => {
     return (
         <Wrapper><br></br>
             <h2 style={{color:"lightgrey", fontSize:"15px", marginLeft:"15px"}}>Your Shopping Cart</h2><br></br>
@@ -22,4 +22,4 @@ const ShoppingCart = () => {
 };
 
 
-export default ShoppingCart;
+export default ShopingCart;
