@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const User = require("../../models/user");
+const Order = require("../../models/order");
 
 //get api/items
 router.get("/", (req, res) => {
-  User.find()
+  Order.find()
     .sort({ date: -1 })
-    .then((users) => res.json(users));
+    .then((orders) => res.json(orders));
 });
 
 router.post("/", (req, res) => {
-  User.create(req.body).then((user) => res.json(user));
+  Order.create(req.body).then((order) => res.json(order));
 });
 
 router.delete("/:id", (req, res) => {
-  User.findById(req.params.id)
-    .then((user) => user.remove().then(() => res.json({ success: true })))
+  Produce.findById(req.params.id)
+    .then((order) => order.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
 

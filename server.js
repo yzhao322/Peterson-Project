@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 
 const produces = require("./routes/api/produces");
 const users = require("./routes/api/users");
+const orders = require("./routes/api/orders");
 
 const app = express();
 
@@ -29,6 +30,7 @@ connection.once("open", () => {
 
 app.use("/api/produces", produces);
 app.use("/api/users", users);
+app.use("/api/orders", orders);
 
 const port = process.env.PORT || 3001;
 
