@@ -6,18 +6,17 @@ const ProduceSchema = new Schema({
     type: String,
     required: true,
   },
-  quantity: {
+  inventory: {
+    type: Number,
+    required: true,
+  },
+  price: {
     type: Number,
     required: true,
   },
   description: {
     type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  }
 });
 
 module.exports = Produce = mongoose.model("produce", ProduceSchema);
