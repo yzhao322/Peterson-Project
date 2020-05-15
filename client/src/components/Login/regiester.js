@@ -1,8 +1,8 @@
 import React from "react";
 import API from "../../utils/API";
 import "./style.scss";
-import passport from "passport";
-
+import zxcvbn from 'zxcvbn';
+import "react-bootstrap";
 import Modal from 'react-bootstrap/Modal'
 
 
@@ -40,9 +40,33 @@ class Register extends React.Component {
         password: ""
       },
       setShow: false,
+      type: 'input',
+      score: 'null',
+      hidden: true,
     };
+
+
+    this.toggleShow = this.toggleShow.bind(this);
+    this.passwordStrength = this.passwordStrength.bind(this);
+
   };
 
+
+
+  passwordStrength(e) {
+    if (e.target.value === '') {
+      this.setState({
+        score: 'null'
+      })
+    }
+    else {
+      var pw = zxcvbn(e.target.value);
+      this.setState({
+        score: pw.score
+      });
+    }
+
+  }
   handleSubmit = e => {
     e.preventDefault();
 
@@ -55,11 +79,11 @@ class Register extends React.Component {
       `);
 
       API.postUser(this.state)
-      .then((response) => console.log(response))
-      .catch((err) => console.warn(err));
+        .then((response) => console.log(response))
+        .catch((err) => console.warn(err));
 
     } else {
-      this.setState({setShow:true});
+      this.setState({ setShow: true });
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
@@ -92,16 +116,21 @@ class Register extends React.Component {
       default:
         break;
     }
-  
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+
+    this.setState({ formErrors, [name]: value });
+  };
+
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
   };
 
 
   render(props) {
 
     const { formErrors } = this.state;
-    let setShowClose = () => this.setState({setShow:false});
-    
+    let setShowClose = () => this.setState({ setShow: false });
+
 
     return (
 
@@ -139,13 +168,21 @@ class Register extends React.Component {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
-                type="text"
-                name="password"
-                placeholder="password"
-                onChange={this.handleChange} />
-              {formErrors.username.length > 0 && (
-                <span className="errorMessage"> {formErrors.password}</span>
-              )}
+
+                  className="password__input"
+                  type={this.state.hidden ? "password" : "text"}
+                  name="password"
+                  placeholder="password"
+                  onChange={this.handleChange}
+                  onChange={this.passwordStrength} />
+                <span className="password__strength" data-score={this.state.score} />
+
+                <button onClick={this.toggleShow}
+                >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
+                {formErrors.username.length > 0 && (
+                  <span className="errorMessage"> {formErrors.password}</span>
+                )}
+              
             </div>
           </div>
         </div>
@@ -160,25 +197,25 @@ class Register extends React.Component {
         </div>
 
 
-    <Modal
-      show= {this.state.setShow}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+        <Modal
+          show={this.state.setShow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-sm">
               Sorry...
           </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <span className="errorMessage"> FORM INVALID</span>
+            <span className="errorMessage"> FORM INVALID</span>
           </Modal.Body>
           <Modal.Footer>
-        <button 
-        onClick={()=> this.setState({setShow:false})}
-        >Close</button>
-      </Modal.Footer>
+            <button
+              onClick={() => this.setState({ setShow: false })}
+            >Close</button>
+          </Modal.Footer>
         </Modal>
       </div>
     );
