@@ -3,6 +3,7 @@ import ProductList from "../components/ProductList";
 import Wrapper from "../components/Wrapper";
 import ProductDetails from "../components/ProductDetails";
 import Order from "../components/Order"
+import Order2 from "../components/Taco"
 
 
 
@@ -15,7 +16,8 @@ const Product = () => {
           <Order />
         </div>
         <div className="col-sm-7">
-          <ProductList />
+          {/* <ProductList /> */}
+          <Order2 />
         </div>
       </div>
 

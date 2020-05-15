@@ -55,11 +55,11 @@ class Register extends React.Component {
       `);
 
       API.postUser(this.state)
-      .then((response) => console.log(response))
-      .catch((err) => console.warn(err));
+        .then((response) => console.log(response))
+        .catch((err) => console.warn(err));
 
     } else {
-      this.setState({setShow:true});
+      this.setState({ setShow: true });
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
@@ -92,16 +92,16 @@ class Register extends React.Component {
       default:
         break;
     }
-  
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+
+    this.setState({ formErrors, [name]: value });
   };
 
 
   render(props) {
 
     const { formErrors } = this.state;
-    let setShowClose = () => this.setState({setShow:false});
-    
+    let setShowClose = () => this.setState({ setShow: false });
+
 
     return (
 
@@ -160,25 +160,25 @@ class Register extends React.Component {
         </div>
 
 
-    <Modal
-      show= {this.state.setShow}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+        <Modal
+          show={this.state.setShow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-sm">
               Sorry...
           </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <span className="errorMessage"> FORM INVALID</span>
+            <span className="errorMessage"> FORM INVALID</span>
           </Modal.Body>
           <Modal.Footer>
-        <button 
-        onClick={()=> this.setState({setShow:false})}
-        >Close</button>
-      </Modal.Footer>
+            <button
+              onClick={() => this.setState({ setShow: false })}
+            >Close</button>
+          </Modal.Footer>
         </Modal>
       </div>
     );

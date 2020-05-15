@@ -12,6 +12,23 @@ const Order = props => {
         order: {}
     })
 
+    // componentDidMount() {
+    //     axios.get('http://localhost:3001/api/produces/')
+    //         .then(response => {
+    //             if (response.data.length > 0) {
+    //                 this.setState({
+    //                     // users: response.data.map(user => user.username),
+    //                     // username: response.data[0].username
+    //                     name: response.data.map(name => name.name)
+    //                 })
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+
+    // };
+
     const orderForm = e => {
         e.preventDefault()
         console.log("Order", state.order)
