@@ -5,6 +5,10 @@ import Modal from 'react-bootstrap/Modal';
 
 import API from "../../utils/API";
 
+// const [state, setState] = useState({
+//   username: "",
+//   password: "",
+// });
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -46,7 +50,7 @@ class Login extends React.Component {
         Password: ${this.state.password}
       `);
 
-      API.postUser(state)
+      API.postUser(this.state)
       .then((response) => console.log(response))
       .catch((err) => console.warn(err));
 

@@ -53,6 +53,11 @@ class Register extends React.Component {
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
+
+      API.postUser(this.state)
+      .then((response) => console.log(response))
+      .catch((err) => console.warn(err));
+
     } else {
       this.setState({setShow:true});
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
