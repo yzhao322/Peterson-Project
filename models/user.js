@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 // var bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
+  title: {
+    type: String,
+    required: false
+  },
   username: {
     type: String,
     required: true,
@@ -17,7 +21,8 @@ const UserSchema = new Schema({
     type: String,
     allowNull: false,
     required: true,
-  },
+
+  }
 });
 
 // UserSchema.prototype.valPassword = function (password) {

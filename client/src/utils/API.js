@@ -6,4 +6,5 @@ export default {
 
   postUser: (data) => axios.post("/api/users", data),
   getProduce: () => axios.get("/api/produces"),
+
 };
