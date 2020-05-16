@@ -1,4 +1,7 @@
 const express = require("express");
+const session = require("express-session");
+
+
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
@@ -7,13 +10,21 @@ const order = require("./routes/api/order");
 const users = require("./routes/api/users");
 const orders = require("./routes/api/orders");
 
+
 const app = express();
 
 app.use(bodyParser.json());
 
+// Requiring our routes 
+
 app.use("/api/produces", produces);
 app.use("/api/order", order);
 app.use("/api/users", users);
+
+
+
+
+
 
 const db = require("./config/keys").mongoURI;
 
