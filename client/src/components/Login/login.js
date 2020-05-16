@@ -1,14 +1,10 @@
 import React from "react";
 import "./style.scss";
 import Modal from 'react-bootstrap/Modal';
-
+import "react-bootstrap";
 
 import API from "../../utils/API";
 
-// const [state, setState] = useState({
-//   username: "",
-//   password: "",
-// });
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -37,7 +33,10 @@ class Login extends React.Component {
         password: ""
       },
       setShow: false,
+      type: 'input',
+      hidden: true,
     };
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
   handleSubmit = e => {
@@ -51,13 +50,13 @@ class Login extends React.Component {
       `);
 
       API.postUser(this.state)
-      .then((response) => console.log(response))
-      .catch((err) => console.warn(err));
+        .then((response) => console.log(response))
+        .catch((err) => console.warn(err));
 
 
 
     } else {
-      this.setState({setShow:true});
+      this.setState({ setShow: true });
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
@@ -89,15 +88,20 @@ class Login extends React.Component {
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  };
+  
   render() {
     const { formErrors } = this.state;
-    let setShowClose = () => this.setState({setShow:false});
+
 
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
         <div className="content">
- 
+
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -114,10 +118,12 @@ class Login extends React.Component {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
-                type="text"
+                type={this.state.hidden ? "password" : "text"}
                 name="password"
                 placeholder="password"
                 onChange={this.handleChange} />
+              <button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
               {formErrors.username.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
@@ -125,35 +131,35 @@ class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button 
-          type="button" 
-          className="btn"
-          onClick={this.handleSubmit}
+          <button
+            type="button"
+            className="btn"
+            onClick={this.handleSubmit}
           >
             Login
           </button>
-          
+
         </div>
 
         <Modal
-      show= {this.state.setShow}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+          show={this.state.setShow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-sm">
               Sorry...
           </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <span className="errorMessage"> FORM INVALID</span>
+            <span className="errorMessage"> FORM INVALID</span>
           </Modal.Body>
           <Modal.Footer>
-        <button 
-        onClick={()=> this.setState({setShow:false})}
-        >Close</button>
-      </Modal.Footer>
+            <button
+              onClick={() => this.setState({ setShow: false })}
+            >Close</button>
+          </Modal.Footer>
         </Modal>
       </div>
     );

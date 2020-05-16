@@ -1,8 +1,8 @@
 import React from "react";
 import API from "../../utils/API";
 import "./style.scss";
-import passport from "passport";
-
+import zxcvbn from 'zxcvbn';
+import "react-bootstrap";
 import Modal from 'react-bootstrap/Modal'
 
 
@@ -40,9 +40,33 @@ class Register extends React.Component {
         password: ""
       },
       setShow: false,
+      type: 'input',
+      score: 'null',
+      hidden: true,
     };
+
+
+    this.toggleShow = this.toggleShow.bind(this);
+    this.passwordStrength = this.passwordStrength.bind(this);
+
   };
 
+
+
+  passwordStrength(e) {
+    if (e.target.value === '') {
+      this.setState({
+        score: 'null'
+      })
+    }
+    else {
+      var pw = zxcvbn(e.target.value);
+      this.setState({
+        score: pw.score
+      });
+    }
+
+  }
   handleSubmit = e => {
     e.preventDefault();
 
@@ -97,6 +121,11 @@ class Register extends React.Component {
   };
 
 
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  };
+
+
   render(props) {
 
     const { formErrors } = this.state;
@@ -139,13 +168,21 @@ class Register extends React.Component {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
-                type="text"
+
+                className="password__input"
+                type={this.state.hidden ? "password" : "text"}
                 name="password"
                 placeholder="password"
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+                onChange={this.passwordStrength} />
+              <span className="password__strength" data-score={this.state.score} />
+
+              <button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
               {formErrors.username.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
+
             </div>
           </div>
         </div>
