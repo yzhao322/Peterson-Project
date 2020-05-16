@@ -2,23 +2,20 @@ import React from "react";
 import ProductList from "../components/ProductList";
 import Wrapper from "../components/Wrapper";
 import ProductDetails from "../components/ProductDetails";
-import Order from "../components/Order"
-
-
-
+import Order from "../components/Order";
 
 const Product = () => {
   return (
-    <Wrapper><br></br>
+    <Wrapper>
+      <br></br>
       <div className="row">
         <div className="col-sm-5">
           <Order />
         </div>
-        <div className="col-sm-7">
+        {/* <div className="col-sm-7">
           <ProductList />
-        </div>
+        </div> */}
       </div>
-
     </Wrapper>
   );
 };

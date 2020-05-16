@@ -20,8 +20,6 @@ const UserSchema = new Schema({
   },
 });
 
-
-
 // UserSchema.prototype.valPassword = function (password) {
 //   console.log(bcrypt.compareSync(password, this.password));
 //   return bcrypt.compareSync(password, this.password);
