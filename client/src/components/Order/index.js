@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import {
   FormControl,
@@ -11,44 +11,50 @@ import {
 } from "react-bootstrap";
 
 const Order = (props) => {
-  const [state, setState] = useState({
-    produce: [{ name: "", inventory: 0, price: 0, description: "" }],
-  });
+  // const [state, setState] = useState({
+  //   produce: [{ name: "", inventory: 0, price: 0, description: "" }],
+  // });
+  const [state, produceState] = useState([]);
+
+  const [order, orderState] = useState({ order: {} });
 
   const orderForm = (e) => {
     e.preventDefault();
-    console.log("Order", state.produce);
+    console.log("Order", order);
   };
 
-  const getProduces = (e) => {
-    e.preventDefault();
-    API.getProduce().then((response) => {
-      console.log(response);
-      setState({
-        ...state,
-        produce: {
-          ...state.produce,
-          response,
-        },
-      });
-    });
-  };
+  useEffect(() => {
+    API.getProduce()
+      .then((response) => {
+        console.log(response);
+        produceState(response.data);
+        // setState({
+        //   ...state,
+        //   produce: {
+        //     ...state.produce,
+        //     response,
+        //   },
+        // });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleOrder = (e) => {
-    setState({
-      ...state,
+    orderState({
+      ...order,
       order: {
-        ...state.order,
+        ...order.order,
         [e.target.name]: e.target.value,
       },
     });
+    console.log("handled");
   };
 
   return (
     <Container>
       <ListGroup>
-        <Form onSubmit={getProduces}>
-          {state.produce.map(({ id, name }) => (
+        <Form onSubmit={orderForm}>
+          {state.map(({ id, name }) => (
             <ListGroupItem style={{ border: "black" }}>
               <Form.Check
                 type="checkbox"
@@ -67,18 +73,11 @@ const Order = (props) => {
           <Button type="submit" color="light" style={{ marginBottom: "2rem" }}>
             Add to Cart
           </Button>
-          <Button type="submit" color="light" style={{ marginBottom: "2rem" }}>
-            Get
-          </Button>
         </Form>
       </ListGroup>
 
       {/* <Form.Group controlId="formBasicCheckbox"> */}
-      <Form.Check
-        type="checkbox"
-        label="Check me out"
-        style={{ border: "red" }}
-      />
+
       {/* </Form.Group> */}
     </Container>
   );

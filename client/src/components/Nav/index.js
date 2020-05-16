@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import Login from "../../pages/Login";
+import LoginIndex from "../Login/index";
+
 import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button} from "react-bootstrap";
 
 function Navbars() {
@@ -15,7 +16,7 @@ function Navbars() {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Peterson</Navbar.Brand>
+      <Navbar.Brand href="/home">Peterson</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -38,19 +39,16 @@ function Navbars() {
 
           {/* modal open button */}
           <Button onClick={() => { setModalIsOpen(true); handleShow() }}>Login</Button>
-
+         
         </Form>
 
       </Navbar.Collapse>
 
       {/* modal window front end set up - body */}
       <Modal isOpen={modalIsOpen} show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Login />
-        </Modal.Body>
+
+          <LoginIndex />
+      
       </Modal>
       {/* modal end */}
 
