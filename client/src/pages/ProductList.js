@@ -16,7 +16,7 @@ const Product = () => {
           <ProductList />
         </div> */}
       </div>
-    </Wrapper>
+    </Wrapper >
   );
 };
 

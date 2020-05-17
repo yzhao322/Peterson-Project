@@ -34,10 +34,14 @@ class Register extends React.Component {
       username: null,
       email: null,
       password: null,
+      address: null,
+      title: "Member",
       formErrors: {
         username: "",
         email: "",
-        password: ""
+        password: "",
+        address: "",
+        msg: ""
       },
       setShow: false,
       type: 'input',
@@ -54,6 +58,10 @@ class Register extends React.Component {
 
 
   passwordStrength(e) {
+
+    const { name, value } = e.target;
+    let formErrors = { ...this.state.formErrors };
+
     if (e.target.value === '') {
       this.setState({
         score: 'null'
@@ -65,9 +73,14 @@ class Register extends React.Component {
         score: pw.score
       });
     }
+    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
 
   }
+
+
   handleSubmit = e => {
+
+    let formErrors = { ...this.state.formErrors };
     e.preventDefault();
 
     if (formValid(this.state)) {
@@ -76,17 +89,25 @@ class Register extends React.Component {
         Username: ${this.state.username}
         Email: ${this.state.email}
         Password: ${this.state.password}
+        Address: ${this.state.address}
+        Title: ${this.state.title}
       `);
-
-      API.postUser(this.state)
-        .then((response) => console.log(response))
-        .catch((err) => console.warn(err));
 
     } else {
       this.setState({ setShow: true });
+      this.setState.formErrors.msg = "FORM INVALID - DISPLAY ERROR MESSAGE";
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
+
+    API.postUser(this.state)
+      .then((response) => console.log(response, "done"))
+      .catch((err) => {
+        console.log(err)
+      })
+
+
   };
+
 
   handleChange = e => {
 
@@ -117,7 +138,9 @@ class Register extends React.Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value });
+    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+
+
   };
 
 
@@ -161,28 +184,44 @@ class Register extends React.Component {
                 placeholder="email"
                 onChange={this.handleChange}
               />
-              {formErrors.username.length > 0 && (
+              {formErrors.email.length > 0 && (
                 <span className="errorMessage"> {formErrors.email}</span>
               )}
             </div>
+
+            <div className="form-group">
+
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                name="address"
+                placeholder="address"
+                onChange={this.handleChange}
+              />
+              {formErrors.address.length > 0 && (
+                <span className="errorMessage"> {formErrors.Address}</span>
+              )}
+            </div>
+
             <div className="form-group">
               <label htmlFor="password">Password</label>
+
               <input
+                className="password__input"
+                type={this.state.hidden ? "password" : "text"}
+                name="password"
+                placeholder="password"
+                // onChange={this.handleChange}
+                onChange={this.passwordStrength}
+              />
+              <span className="password__strength" data-score={this.state.score} />
 
-                  className="password__input"
-                  type={this.state.hidden ? "password" : "text"}
-                  name="password"
-                  placeholder="password"
-                  onChange={this.handleChange}
-                  onChange={this.passwordStrength} />
-                <span className="password__strength" data-score={this.state.score} />
+              <button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
+              {formErrors.password.length > 0 && (
+                <span className="errorMessage"> {formErrors.password}</span>
+              )}
 
-                <button onClick={this.toggleShow}
-                >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
-                {formErrors.username.length > 0 && (
-                  <span className="errorMessage"> {formErrors.password}</span>
-                )}
-              
             </div>
           </div>
         </div>
@@ -209,7 +248,7 @@ class Register extends React.Component {
           </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <span className="errorMessage"> FORM INVALID</span>
+            <span className="errorMessage"> {formErrors.msg}</span>
           </Modal.Body>
           <Modal.Footer>
             <button

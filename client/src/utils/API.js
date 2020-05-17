@@ -5,5 +5,11 @@ export default {
   // getProduces: () => axios.get("/api/produces"),
 
   postUser: (data) => axios.post("/api/users", data),
+
+  //login post
+  postLogin: (data) => axios.post("/api/login", data),
+
+
+
   getProduce: () => axios.get("/api/produces"),
 };

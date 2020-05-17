@@ -2,7 +2,6 @@ import React from "react";
 import "./style.scss";
 import Modal from 'react-bootstrap/Modal';
 import "react-bootstrap";
-
 import API from "../../utils/API";
 
 
@@ -28,9 +27,11 @@ class Login extends React.Component {
     this.state = {
       username: null,
       password: null,
+      title: "Member",
       formErrors: {
         username: "",
-        password: ""
+        password: "",
+        title: ""
       },
       setShow: false,
       type: 'input',
@@ -47,13 +48,8 @@ class Login extends React.Component {
         --SUBMITTING--
         Username: ${this.state.username}
         Password: ${this.state.password}
+        Title: ${this.state.title}
       `);
-
-      API.postUser(this.state)
-        .then((response) => console.log(response))
-        .catch((err) => console.warn(err));
-
-
 
     } else {
       this.setState({ setShow: true });
@@ -85,14 +81,33 @@ class Login extends React.Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value });
+
+      API.postLogin(this.state)
+      .then(function (data) {
+        if (data.title === "Member") {
+          console.log("I am here !!!!")
+          window.location.replace("/members");
+        } else if (data.title === "Manager") {
+          window.location.replace("/managers");
+        }
+      })
+      .catch(function (err) {
+        console.log(err)
+      });
+
   };
 
 
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
   };
+
+
+  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+
   
+
   render() {
     const { formErrors } = this.state;
 
@@ -122,12 +137,25 @@ class Login extends React.Component {
                 name="password"
                 placeholder="password"
                 onChange={this.handleChange} />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <select
+                name="title"
+                id="selector"
+                onChange={this.handleChange} >
+                <option value="member">Member</option>
+                <option value="manager">Manager</option>
+              </select>
+
               <button onClick={this.toggleShow}
               >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
-              {formErrors.username.length > 0 && (
+              {formErrors.password.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
             </div>
+
           </div>
         </div>
         <div className="footer">
