@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import API from "../utils/API";
+import API from "../../utils/API";
 
-export default () => {
+const AddProduce = () => {
   const [state, setState] = useState({
     name: "",
     quantity: 0,
@@ -39,3 +39,5 @@ export default () => {
     </>
   );
 };
+
+export default AddProduce;
