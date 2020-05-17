@@ -102,9 +102,9 @@ class Register extends React.Component {
     API.postUser(this.state)
       .then((response) => console.log(response, "done"))
       .catch((err) => {
-        console.log(err)  
-      })  
-     
+        console.log(err)
+      })
+
 
   };
 
@@ -139,8 +139,8 @@ class Register extends React.Component {
     }
 
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
-  
-  
+
+
   };
 
 
@@ -213,7 +213,7 @@ class Register extends React.Component {
                 placeholder="password"
                 // onChange={this.handleChange}
                 onChange={this.passwordStrength}
-                 />
+              />
               <span className="password__strength" data-score={this.state.score} />
 
               <button onClick={this.toggleShow}
@@ -222,23 +222,6 @@ class Register extends React.Component {
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
 
-<<<<<<< HEAD
-                className="password__input"
-                type={this.state.hidden ? "password" : "text"}
-                name="password"
-                placeholder="password"
-                onChange={this.handleChange}
-                onChange={this.passwordStrength} />
-              <span className="password__strength" data-score={this.state.score} />
-
-              <button onClick={this.toggleShow}
-              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
-              {formErrors.username.length > 0 && (
-                <span className="errorMessage"> {formErrors.password}</span>
-              )}
-
-=======
->>>>>>> b121d935dfd7a82e3d27a4d182042584f982ace1
             </div>
           </div>
         </div>
