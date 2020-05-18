@@ -4,7 +4,8 @@ import API from "../../utils/API";
 const AddProduce = () => {
   const [state, setState] = useState({
     name: "",
-    quantity: 0,
+    inventory: 0,
+    price: 0,
     description: "",
   });
 
@@ -18,7 +19,14 @@ const AddProduce = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     API.postProduce(state)
-      .then((response) => console.log(response))
+      .then((response) =>
+        setState({
+          name: "",
+          inventory: 0,
+          price: 0,
+          description: "",
+        })
+      )
       .catch((err) => console.warn(err));
   };
 
@@ -26,14 +34,39 @@ const AddProduce = () => {
     <>
       <h1>Add Produce</h1>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <br />
         <input type="text" name="name" onChange={handleChange} required />
-        <input type="number" name="quantity" onChange={handleChange} required />
+        <br />
+        <label htmlFor="name">Price</label>
+        <br />
+        <input
+          type="number"
+          name="price"
+          min="0"
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <label htmlFor="name">Inventory</label>
+        <br />
+        <input
+          type="number"
+          name="inventory"
+          min="0"
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <label htmlFor="name">Description</label>
+        <br />
         <input
           type="textarea"
           name="description"
           onChange={handleChange}
           required
-        />
+        />{" "}
+        <br />
         <button>Submit</button>
       </form>
     </>
