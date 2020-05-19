@@ -23,9 +23,6 @@ app.use("/api/users", users);
 
 
 
-
-
-
 const db = require("./config/keys").mongoURI;
 
 mongoose.connect(db, {
