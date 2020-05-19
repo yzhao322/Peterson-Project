@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
@@ -12,11 +11,11 @@ import ShoppingCart from "./pages/ShoppingCart";
 import LoginIndex from "./components/Login/index";
 import Product from "./pages/ProductList";
 import ShopingCart from "./pages/shopping-cart";
+import ManagerTest from "./pages/ManagerTest";
 import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
 
 function App() {
-  
   return (
     <Router>
       <>
@@ -26,10 +25,15 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/Login" component={LoginIndex} />
           <Route exact path="/product" component={Product} />
+          <Route exact path="/category" component={ManagerTest} />
           <Route exact path="/shopping-cart" component={ShopingCart} />
           <Route exact path="/favorites" component={FavoritesList} />
           <Route exact path="/posts/:id" component={Detail} />
-          <Route exact path="/transactionHistory" component={TransactionHistory} />
+          <Route
+            exact
+            path="/transactionHistory"
+            component={TransactionHistory}
+          />
           <Route exact path="/contacts" component={Contacts} />
           <Route component={NoMatch} />
         </Switch>
