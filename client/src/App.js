@@ -16,6 +16,7 @@ import ShopingCart from "./pages/shopping-cart";
 import ManagerTest from "./pages/ManagerTest";
 import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
+import product from "./pages/Product";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/Login" component={LoginIndex} />
           <Route exact path="/member" component={member} />
-          <Route exact path="/product" component={Product} />
+          <Route exact path="/product" component={product} />
           <Route exact path="/category" component={ManagerTest} />
           <Route exact path="/shopping-cart" component={ShopingCart} />
           <Route exact path="/favorites" component={FavoritesList} />

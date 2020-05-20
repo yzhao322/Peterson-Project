@@ -6,20 +6,22 @@ function ProductList(props) {
   return (
     <div>
       <h4>Featured Products</h4>
+
       {props.produce.map((item) => {
+
         return (
-          <CardDeck>
+          <CardDeck key = {item._id}>
             <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Img variant="top" />
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{item.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">{item.quantity}</small>
+                <small className="text-muted">Inventory: {item.inventory}</small>
               </Card.Footer>
             </Card>
-          </CardDeck>
+            </CardDeck>
         );
       })}
     </div>
