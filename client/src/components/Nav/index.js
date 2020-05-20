@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 import LoginIndex from "../Login/index";
 
+
 import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import API from "../../utils/API";
 
 
 
 function Navbars() {
+
+
+  //hoping to check logged status then fill up with the user info.
+
+ 
+
 
   //modal - pop up window for log in 
   const [modalIsOpen, setModalIsOpen] = useState(false);

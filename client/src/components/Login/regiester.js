@@ -80,7 +80,7 @@ class Register extends React.Component {
 
   handleSubmit = e => {
 
-    let formErrors = { ...this.state.formErrors };
+    // let formErrors = { ...this.state.formErrors };
     e.preventDefault();
 
     if (formValid(this.state)) {
@@ -138,8 +138,7 @@ class Register extends React.Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
-
+    this.setState({ formErrors, [name]: value });
 
   };
 
@@ -152,7 +151,7 @@ class Register extends React.Component {
   render(props) {
 
     const { formErrors } = this.state;
-    let setShowClose = () => this.setState({ setShow: false });
+    // let setShowClose = () => this.setState({ setShow: false });
 
 
     return (

@@ -7,9 +7,11 @@ import NoMatch from "./pages/NoMatch";
 import Navbars from "./components/Nav";
 import Footer from "./components/Footer";
 import FavoritesList from "./pages/FavoritesList";
-import ShoppingCart from "./pages/ShoppingCart";
+
 import LoginIndex from "./components/Login/index";
 import Product from "./pages/ProductList";
+
+import member from "./pages/member";
 import ShopingCart from "./pages/shopping-cart";
 import ManagerTest from "./pages/ManagerTest";
 import TransactionHistory from "./components/TransactionHistory";
@@ -24,6 +26,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/Login" component={LoginIndex} />
+          <Route exact path="/member" component={member} />
           <Route exact path="/product" component={Product} />
           <Route exact path="/category" component={ManagerTest} />
           <Route exact path="/shopping-cart" component={ShopingCart} />
