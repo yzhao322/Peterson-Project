@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// var bcrypt = require("bcryptjs");
+
+const passportLocalMongoose = require('passport-local-mongoose');
+
+var bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
   username: {
@@ -11,26 +14,63 @@ const UserSchema = new Schema({
   email: {
     type: String,
     allowNull: true,
+
+  },
+  address: {
+    type: String,
+    allowNull: true,
+
+  },
+  title: {
+    type: String,
+    allowNull: true,
     required: true,
+    default: "member"
   },
   password: {
     type: String,
     allowNull: false,
     required: true,
   },
+  address: {
+    type: String,
+
+  },
+  isLoggedIn: {
+    type: Boolean,
+    default: false
+  }
 });
 
+UserSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.pre('save', function (next) {
+  let user = this;
+
+  //only hash the password if it has been modified ( or is new)
+
+  if (!user.isModified('password')) return next();
+
+  //generate a salt
+  bcrypt.genSalt(10, function (err, salt) {
+
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
+
+  // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
 
 
-// UserSchema.prototype.valPassword = function (password) {
-//   console.log(bcrypt.compareSync(password, this.password));
-//   return bcrypt.compareSync(password, this.password);
-// }
+  UserSchema.plugin(passportLocalMongoose);
 
-// // Hooks are automatic methods that run during various phases of the User Model lifecycle
-// // In this case, before a User is created, we will automatically hash their password
-// UserSchema.addHook("beforeCreate", function (user) {
-//   UserSchema.password = bcrypt.hashSync(Schema.password, bcrypt.genSaltSync(10), null);
-// });
+
+});
 
 module.exports = User = mongoose.model("user", UserSchema);

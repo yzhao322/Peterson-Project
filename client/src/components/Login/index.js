@@ -3,11 +3,15 @@ import "./index.scss";
 import Login from "../Login/login";
 import Register from "../Login/regiester";
 
+
+
+
 class LoginIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogginActive: true
+      isLogginActive: true,
+      
     };
   }
 
@@ -30,9 +34,13 @@ class LoginIndex extends React.Component {
   }
 
   render() {
+  
+
     const { isLogginActive } = this.state;
     const current = isLogginActive ? "Register" : "Login";
     const currentActive = isLogginActive ? "login" : "register";
+
+
     return (
       <div className="App">
         <div className="login">

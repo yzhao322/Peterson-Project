@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+// Requiring our custom middleware for checking if a user is logged in
+var isAuthenticated = require("../../config/middleware/isAuthenticated");
 
 const Order = require("../../models/order");
 
 //get api/items
-router.get("/", (req, res) => {
+router.get("/",isAuthenticated, (req, res) => {
     Order.find()
         .then((order) => res.json(order));
 });
