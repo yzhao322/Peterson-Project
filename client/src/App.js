@@ -14,6 +14,7 @@ import Product from "./pages/ProductList";
 import ShopingCart from "./pages/shopping-cart";
 import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
+import product from "./pages/Product";
 
 function App() {
   
@@ -25,7 +26,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/Login" component={LoginIndex} />
-          <Route exact path="/product" component={Product} />
+          <Route exact path="/product" component={product} />
           <Route exact path="/shopping-cart" component={ShopingCart} />
           <Route exact path="/favorites" component={FavoritesList} />
           <Route exact path="/posts/:id" component={Detail} />
