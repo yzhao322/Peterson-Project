@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+const passportLocalMongoose = require('passport-local-mongoose');
+
 var bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
@@ -11,12 +14,12 @@ const UserSchema = new Schema({
   email: {
     type: String,
     allowNull: true,
-    required: true,
+
   },
   address: {
     type: String,
     allowNull: true,
-    required: true,
+
   },
   title: {
     type: String,
@@ -31,13 +34,17 @@ const UserSchema = new Schema({
   },
   address: {
     type: String,
-    required: false
+
   },
   isLoggedIn: {
     type: Boolean,
     default: false
   }
 });
+
+UserSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 UserSchema.pre('save', function (next) {
   let user = this;
@@ -58,12 +65,12 @@ UserSchema.pre('save', function (next) {
     });
   });
 
-  UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-      if (err) return next(err);
-      cb(null, isMatch);
-    });
-  };
+  // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
+
+
+  UserSchema.plugin(passportLocalMongoose);
+
+
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

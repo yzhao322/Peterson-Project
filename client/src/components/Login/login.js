@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.scss";
-import Modal from 'react-bootstrap/Modal';
-import "react-bootstrap";
+import { Modal, Dropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap"; import "react-bootstrap";
 import API from "../../utils/API";
 
 
@@ -24,10 +23,12 @@ const formValid = ({ formErrors, ...rest }) => {
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       username: null,
       password: null,
       title: "Member",
+      isLoggedIn: true,
       formErrors: {
         username: "",
         password: "",
@@ -37,11 +38,17 @@ class Login extends React.Component {
       type: 'input',
       hidden: true,
     };
+
+
     this.toggleShow = this.toggleShow.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
   handleSubmit = e => {
     e.preventDefault();
+
 
     if (formValid(this.state)) {
       console.log(`
@@ -53,9 +60,27 @@ class Login extends React.Component {
 
     } else {
       this.setState({ setShow: true });
+
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
-  };
+
+
+    API.postLogin(this.state)
+      .then((response) => {
+
+        // this.setState({isLoggedIn:true});
+        console.log(response.data.title, "Logged in!!!", this, this.state)
+
+
+        if (response.data.title === "Member") {
+
+          this.props.handleSuccessfulAuth(response.data);
+        }
+      }).catch((err) => {
+        console.log(err)
+      });
+
+  }
 
   handleChange = e => {
 
@@ -83,19 +108,6 @@ class Login extends React.Component {
 
     this.setState({ formErrors, [name]: value });
 
-      API.postLogin(this.state)
-      .then(function (data) {
-        if (data.title === "Member") {
-          console.log("I am here !!!!")
-          window.location.replace("/members");
-        } else if (data.title === "Manager") {
-          window.location.replace("/managers");
-        }
-      })
-      .catch(function (err) {
-        console.log(err)
-      });
-
   };
 
 
@@ -104,9 +116,8 @@ class Login extends React.Component {
   };
 
 
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
 
-  
+
 
   render() {
     const { formErrors } = this.state;
@@ -116,7 +127,7 @@ class Login extends React.Component {
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
         <div className="content">
-
+          <h4>Status: {this.props.loggedInStatus} </h4>
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -137,35 +148,37 @@ class Login extends React.Component {
                 name="password"
                 placeholder="password"
                 onChange={this.handleChange} />
+              <Button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}
+              </Button>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <select
+            <Form inline>
+
+
+              <Dropdown
                 name="title"
                 id="selector"
                 onChange={this.handleChange} >
-                <option value="member">Member</option>
-                <option value="manager">Manager</option>
-              </select>
+                <Dropdown.Item value="member" selected>Member</Dropdown.Item>
+                <Dropdown.Item value="manager">Manager</Dropdown.Item>
+              </Dropdown>
 
-              <button onClick={this.toggleShow}
-              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
               {formErrors.password.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
-            </div>
+            </Form>
 
           </div>
         </div>
         <div className="footer">
-          <button
+          <Button
             type="button"
             className="btn"
             onClick={this.handleSubmit}
           >
             Login
-          </button>
+          </Button>
 
         </div>
 
@@ -177,11 +190,11 @@ class Login extends React.Component {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-sm">
-              Sorry...
-          </Modal.Title>
+              <span className="modalTitle"> FORM INVALID</span>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <span className="errorMessage"> FORM INVALID</span>
+            <span className="errorMessage">FORM INVALID</span>
           </Modal.Body>
           <Modal.Footer>
             <button

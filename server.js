@@ -1,6 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 
+const passport = require("passport");
+
 
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -13,6 +15,16 @@ const orderhistory = require("./routes/api/orderhistory")
 
 
 const app = express();
+// Creating express app and configuring middleware needed for authentication
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static("public"));
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(bodyParser.json());
 
@@ -22,9 +34,8 @@ app.use("/api/order", order);
 app.use("/api/users", users);
 
 
-
-
-
+// require("./routes/api/users")(app);
+// require("./routes/html-routes.js")(app);
 
 const db = require("./config/keys").mongoURI;
 
@@ -39,10 +50,6 @@ connection.once("open", () => {
   console.log("MongoDB connected");
 });
 
-// mongoose
-//   .connect(db)
-//   .then(() => console.log("MongoDB connected"))
-//   .catch((err) => console.log(err));
 
 const port = process.env.PORT || 3001;
 
