@@ -4,7 +4,7 @@ import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
 import API from "../utils/API";
 
-const Home = () => {
+const Home = (props) => {
   const [produce, produceState] = useState([]);
 
   useEffect(() => {
@@ -19,6 +19,8 @@ const Home = () => {
   return (
     <Wrapper>
       <Header />
+      <h1 style={{ color: "White", margin: "30px" }} > Status: {props.loggedInStatus}</h1>
+
       <br></br>
       <ProductList produce={produce} />
     </Wrapper>
@@ -26,3 +28,4 @@ const Home = () => {
 };
 
 export default Home;
+

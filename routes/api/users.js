@@ -3,8 +3,6 @@ const router = express.Router();
 const passport = require("../../config/passport");
 const User = require("../../models/user");
 
-const connectEnsureLogin = require('connect-ensure-login');
-
 router.post('/login', (req, res, next) => {
   passport.authenticate('local',
   (err, user) => {
@@ -28,35 +26,19 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/login',
-  (req, res) => res.sendFile('html/login.html',
-  { root: __dirname })
-);
 
-router.get('/member',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => 
-  {
-     console.log(res) 
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      console.log(res);
-      res.json({});
-  } else {
-      console.log(res);
-  }
+router.get('/', (req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch(err => res.status(422).json(err));
 });
 
-router.get('/private',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.sendFile('html/private.html', {root: __dirname})
-);
-
-router.get('/user',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.send({user: req.user})
-);
-
+// router.get('/:_id', (req, res) => {
+//   console.log(res)
+//   User.findById(req.param._id)
+//     .then((users) => res.json(users))
+//     .catch(err => res.status(422).json(err));
+// });
 
 //end 
 
@@ -85,20 +67,5 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-
-router.get("/api/user/:username", function (req, res) {
-  User.findAll({
-    where: {
-      username: req.params.username
-    }
-  })
-    .then(function (data) {
-      console.log(data,"loggin in User: ")
-      let userdetails = data[0].dataValues;
-      res.json(userdetails);
-    }).catch(function (error) {
-      console.error(error);
-    });
-});
 
 module.exports = router;

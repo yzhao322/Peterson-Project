@@ -9,7 +9,9 @@ export default {
   //login post
   postLogin: (data) => axios.post("/api/users/login", data),
 
-  getUser: () => axios.get("/member"),
+  // getUser: (_id) => axios.get("/api/user/" + _id),
+  getUser: () => axios.get("/api/users"),
+
 
   getProduce: () => axios.get("/api/produces"),
 };

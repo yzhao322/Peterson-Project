@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.scss";
-import Modal from 'react-bootstrap/Modal';
-import "react-bootstrap";
+import { Modal, Dropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap"; import "react-bootstrap";
 import API from "../../utils/API";
 
 
@@ -24,10 +23,12 @@ const formValid = ({ formErrors, ...rest }) => {
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       username: null,
       password: null,
       title: "Member",
+      isLoggedIn: true,
       formErrors: {
         username: "",
         password: "",
@@ -37,11 +38,17 @@ class Login extends React.Component {
       type: 'input',
       hidden: true,
     };
+
+
     this.toggleShow = this.toggleShow.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    console.log("check status: ", this.props)
   }
 
   handleSubmit = e => {
     e.preventDefault();
+
 
     if (formValid(this.state)) {
       console.log(`
@@ -60,140 +67,145 @@ class Login extends React.Component {
 
     API.postLogin(this.state)
       .then((response) => {
-        this.setState({ setShow: true });
 
-        console.log(response.data.title, "Logged in!!!")
+        // this.setState({isLoggedIn:true});
+        console.log(response.data.title, "Logged in!!!", this, this.state)
+
+
         if (response.data.title === "Member") {
-          window.location.replace("/member");
-        } 
-      }).catch ((err) => {
-      console.log(err)
-    });
+
+          this.props.handleSuccessfulAuth(response.data);
+        }
+      }).catch((err) => {
+        console.log(err)
+      });
+
   }
 
-    handleChange = e => {
+  handleChange = e => {
 
-      e.preventDefault();
+    e.preventDefault();
 
-      //the name here is indicating the name from the input
-      // for example:
-      // if a name in input is username, then the name here will be username
-      // the value here is whatever the vaule of the user input.
-      const { name, value } = e.target;
-      let formErrors = { ...this.state.formErrors };
+    //the name here is indicating the name from the input
+    // for example:
+    // if a name in input is username, then the name here will be username
+    // the value here is whatever the vaule of the user input.
+    const { name, value } = e.target;
+    let formErrors = { ...this.state.formErrors };
 
-      switch (name) {
-        case "username":
-          formErrors.username =
-            value.length < 4 ? "minimum 4 characaters required" : "";
-          break;
-        case "password":
-          formErrors.password =
-            value.length < 6 ? "minimum 6 characaters required" : "";
-          break;
-        default:
-          break;
-      }
-
-      this.setState({ formErrors, [name]: value });
-
-    };
-
-
-    toggleShow() {
-      this.setState({ hidden: !this.state.hidden });
-    };
-
-
-    // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
-
-
-
-    render() {
-      const { formErrors } = this.state;
-
-
-      return (
-        <div className="base-container" ref={this.props.containerRef}>
-          <div className="header">Login</div>
-          <div className="content">
-
-            <div className="form">
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="username"
-                  onChange={this.handleChange}
-                />
-                {formErrors.username.length > 0 && (
-                  <span className="errorMessage"> {formErrors.username}</span>
-                )}
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type={this.state.hidden ? "password" : "text"}
-                  name="password"
-                  placeholder="password"
-                  onChange={this.handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="title">Title</label>
-                <select
-                  name="title"
-                  id="selector"
-                  onChange={this.handleChange} >
-                  <option value="member">Member</option>
-                  <option value="manager">Manager</option>
-                </select>
-
-                <button onClick={this.toggleShow}
-                >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
-                {formErrors.password.length > 0 && (
-                  <span className="errorMessage"> {formErrors.password}</span>
-                )}
-              </div>
-
-            </div>
-          </div>
-          <div className="footer">
-            <button
-              type="button"
-              className="btn"
-              onClick={this.handleSubmit}
-            >
-              Login
-          </button>
-
-          </div>
-
-          <Modal
-            show={this.state.setShow}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="example-modal-sizes-title-sm">
-                <span className="modalTitle"> FORM INVALID</span>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <span className="errorMessage">FORM INVALID</span>
-            </Modal.Body>
-            <Modal.Footer>
-              <button
-                onClick={() => this.setState({ setShow: false })}
-              >Close</button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      );
+    switch (name) {
+      case "username":
+        formErrors.username =
+          value.length < 4 ? "minimum 4 characaters required" : "";
+        break;
+      case "password":
+        formErrors.password =
+          value.length < 6 ? "minimum 6 characaters required" : "";
+        break;
+      default:
+        break;
     }
+
+    this.setState({ formErrors, [name]: value });
+
+  };
+
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  };
+
+
+
+
+
+  render() {
+    const { formErrors } = this.state;
+
+
+    return (
+      <div className="base-container" ref={this.props.containerRef}>
+        <div className="header">Login</div>
+        <div className="content">
+          <h4>Status: {this.props.loggedInStatus} </h4>
+          <div className="form">
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                name="username"
+                placeholder="username"
+                onChange={this.handleChange}
+              />
+              {formErrors.username.length > 0 && (
+                <span className="errorMessage"> {formErrors.username}</span>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type={this.state.hidden ? "password" : "text"}
+                name="password"
+                placeholder="password"
+                onChange={this.handleChange} />
+              <Button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}
+              </Button>
+            </div>
+
+            <Form inline>
+
+
+              <Dropdown
+                name="title"
+                id="selector"
+                onChange={this.handleChange} >
+                <Dropdown.Item value="member" selected>Member</Dropdown.Item>
+                <Dropdown.Item value="manager">Manager</Dropdown.Item>
+              </Dropdown>
+
+              {formErrors.password.length > 0 && (
+                <span className="errorMessage"> {formErrors.password}</span>
+              )}
+            </Form>
+
+          </div>
+        </div>
+        <div className="footer">
+          <Button
+            type="button"
+            className="btn"
+            onClick={this.handleSubmit}
+          >
+            Login
+          </Button>
+
+        </div>
+
+        <Modal
+          show={this.state.setShow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-sm">
+              <span className="modalTitle"> FORM INVALID</span>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <span className="errorMessage">FORM INVALID</span>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              onClick={() => this.setState({ setShow: false })}
+            >Close</button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
   }
+}
 
 
-  export default Login;
+export default Login;
