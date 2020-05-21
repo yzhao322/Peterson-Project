@@ -9,7 +9,10 @@ export default {
   //login post
   postLogin: (data) => axios.post("/api/login", data),
 
-
+  removeproduce: (data) => axios.put("/api/produces", data),
 
   getProduce: () => axios.get("/api/produces"),
+
+  update: () => axios.get("/api/produces")
+
 };

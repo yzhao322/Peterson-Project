@@ -32,8 +32,8 @@ const AddProduce = () => {
 
   return (
     <>
-      <h1>Add Produce</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 style={{ color: "salmon" }}>Add Produce</h1>
+      <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
         <label htmlFor="name">Name</label>
         <br />
         <input type="text" name="name" onChange={handleChange} required />
