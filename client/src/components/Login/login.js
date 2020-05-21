@@ -43,7 +43,7 @@ class Login extends React.Component {
     this.toggleShow = this.toggleShow.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log("check status: ", this.props)
+    
   }
 
   handleSubmit = e => {

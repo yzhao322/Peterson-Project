@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import API from "../../utils/API";
+// import React, { useState, useEffect } from "react";
+// import { Link, useParams } from "react-router-dom";
+// import API from "../../utils/API";
 
-import Register from "../Login/regiester";
-import { NavDropdown } from "react-bootstrap";
+// import Register from "../Login/regiester";
+// import { NavDropdown } from "react-bootstrap";
 
 
 // class userMenu extends React.Component {

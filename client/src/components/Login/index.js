@@ -16,19 +16,15 @@ class LoginIndex extends React.Component {
       isAuthenicated: false
     };
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    console.log("check status: ", this.props)
+    console.log("-LoginIndex _ check status: ", this.props)
   }
 
  
-  handleSuccessfulAuth(data) {
+  handleSuccessfulAuth(props,data) {
     //update parent compoent
     this.props.handleLogin(data);
     window.location.replace("/member");
 
-  //   this.context.router.push({
-  //     pathname: '/member',
-  //     state: {data}  
-  // })
   }
 
   componentDidMount() {
@@ -67,7 +63,7 @@ class LoginIndex extends React.Component {
         }
 
         console.log(" I am here!", res)
-        console.log(this.props)
+        // console.log(this.props)
       })
       .catch(err => console.log(err));
   }
@@ -89,15 +85,19 @@ class LoginIndex extends React.Component {
         <div className="login">
           <h4>Status: {this.props.loggedInStatus} </h4>
           <div className="container" ref={ref => (this.container = ref)}>
+            
             {isLogginActive && (
               <Login 
               containerRef={ref => (this.current = ref)} 
               handleSuccessfulAuth={this.handleSuccessfulAuth} />
             )}
+
             {!isLogginActive && (
               <Register containerRef={ref => (this.current = ref)} />
             )}
           </div>
+
+
           <RightSide
             current={current}
             currentActive={currentActive}

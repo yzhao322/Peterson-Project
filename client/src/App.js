@@ -7,10 +7,11 @@ import NoMatch from "./pages/NoMatch";
 import Navbars from "./components/Nav";
 import Footer from "./components/Footer";
 
-// import UserMenu from "./components/userMenu";
+
 import FavoritesList from "./pages/FavoritesList";
 
 import LoginIndex from "./components/Login";
+
 
 import Product from "./pages/ProductList";
 import Member from "./pages/member";
@@ -46,20 +47,19 @@ class App extends React.Component {
     return (
       <Router>
         <>
-
-          <Route render={props => (
-              <Navbars {...props} 
-              handleLogin={this.handleLogin} 
-              loggedInStatus={this.state.loggedInStatus} />
-            )} />
+          <Navbars />
           <Switch>
-          <Route exact path="/" component={Home} />
-            
+            <Route exact path={"/"} component={Home} />
+
             {/* //Login Home page */}
-            {/* <Route exact path="/login" render={props => (
-              <LoginIndex 
-              loggedInStatus={this.state.loggedInStatus} />
-            )} /> */}
+            <Route exact path={"/LoginIndex"} render={props => (
+              <LoginIndex
+                {...props}
+                handleLogin={this.handleLogin}
+                loggedInStatus={this.state.loggedInStatus} />
+            )} />
+
+
 
             <Route exact path={"/member"} render={props => (
               <Member
