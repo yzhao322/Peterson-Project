@@ -3,7 +3,9 @@ import API from "../../utils/API";
 import "./style.scss";
 import zxcvbn from 'zxcvbn';
 import "react-bootstrap";
-import Modal from 'react-bootstrap/Modal'
+import { Modal, Button } from "react-bootstrap";
+
+
 
 
 const emailRegex = RegExp(
@@ -52,7 +54,8 @@ class Register extends React.Component {
 
     this.toggleShow = this.toggleShow.bind(this);
     this.passwordStrength = this.passwordStrength.bind(this);
-
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
 
 
@@ -80,7 +83,7 @@ class Register extends React.Component {
 
   handleSubmit = e => {
 
-    let formErrors = { ...this.state.formErrors };
+    // let formErrors = { ...this.state.formErrors };
     e.preventDefault();
 
     if (formValid(this.state)) {
@@ -100,7 +103,11 @@ class Register extends React.Component {
     }
 
     API.postUser(this.state)
-      .then((response) => console.log(response, "done"))
+      .then((response) => {
+
+        window.location.replace("/signUpsuccess")
+      }
+      )
       .catch((err) => {
         console.log(err)
       })
@@ -138,8 +145,7 @@ class Register extends React.Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
-
+    this.setState({ formErrors, [name]: value });
 
   };
 
@@ -152,7 +158,7 @@ class Register extends React.Component {
   render(props) {
 
     const { formErrors } = this.state;
-    let setShowClose = () => this.setState({ setShow: false });
+    // let setShowClose = () => this.setState({ setShow: false });
 
 
     return (
@@ -214,25 +220,27 @@ class Register extends React.Component {
                 // onChange={this.handleChange}
                 onChange={this.passwordStrength}
               />
+              <Button onClick={this.toggleShow}
+              >{this.state.type === 'input' ? 'Show' : 'Hide'}</Button>
+
               <span className="password__strength" data-score={this.state.score} />
 
-              <button onClick={this.toggleShow}
-              >{this.state.type === 'input' ? 'Show' : 'Hide'}</button>
               {formErrors.password.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
               )}
 
             </div>
+            <Button
+              type="button"
+              className="btn"
+              onClick={this.handleSubmit}
+            >
+              Register
+          </Button>
           </div>
         </div>
         <div className="footer">
-          <button
-            type="button"
-            className="btn"
-            onClick={this.handleSubmit}
-          >
-            Register
-          </button>
+
         </div>
 
 

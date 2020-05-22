@@ -1,24 +1,24 @@
 import React from "react";
 import { Card, ListGroupItem, ListGroup, Button, InputGroup, FormControl } from "react-bootstrap";
 
-function ProductDetails() {
+function ProductDetails(props) {
   return (
-    <Card style={{ width: '30rem' }}>
+  <>
+    {props.produce.map(item => {
+      return (
+        <>
+    <Card style={{ width: '30rem'}}>
       <Card.Body>
-        <Card.Title>Product Title</Card.Title>
+        <Card.Title>{item.name}</Card.Title>
         <Card.Text>
-          Some descriptions about the clicked product.
-          Some descriptions about the clicked product.
-          Some descriptions about the clicked product.
-          Some descriptions about the clicked product.
-          Some descriptions about the clicked product.
+          {item.description}
     </Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <ListGroupItem>Price :</ListGroupItem>
-        <ListGroupItem>Category :</ListGroupItem>
+            <ListGroupItem>Price : {item.price}</ListGroupItem>
+        {/* <ListGroupItem>Category :</ListGroupItem>
         <ListGroupItem>Locality of Growth :</ListGroupItem>
-        <ListGroupItem>Item Number :</ListGroupItem>
+        <ListGroupItem>Item Number :</ListGroupItem> */}
       </ListGroup>
       <Card.Body>
         <InputGroup className="mb-3">
@@ -33,7 +33,11 @@ function ProductDetails() {
         </InputGroup>
         <Button>Add to the Cart</Button>
       </Card.Body>
-    </Card>
+          </Card> <br></br>
+          </>
+        );
+    })}
+      </>
   );
 }
 
