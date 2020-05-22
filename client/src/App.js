@@ -10,7 +10,8 @@ import Footer from "./components/Footer";
 
 import FavoritesList from "./pages/FavoritesList";
 
-import LoginIndex from "./components/Login";
+// import LoginIndex from "./components/Login";
+// import LoginIndex from "./components/Login";
 
 
 import Product from "./pages/ProductList";
@@ -20,10 +21,7 @@ import ShopingCart from "./pages/shopping-cart";
 import ManagerTest from "./pages/ManagerTest";
 import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
-import product from "./pages/Product";
-
-
-
+// import product from "./pages/Product";
 
 class App extends React.Component {
   constructor() {
@@ -32,11 +30,24 @@ class App extends React.Component {
     this.state = {
       loggedInStatus: "Not_Logged_In",
       user: {}
-    }
+    };
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+   
+  }
+
+
+  handleLogout() {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    });
+    localStorage.removeItem('userData');
+    window.location.replace("/");
   }
 
   handleLogin(data) {
+
     this.setState({
       loggedInStatus: "Logged_In",
       user: data
@@ -47,30 +58,23 @@ class App extends React.Component {
     return (
       <Router>
         <>
-          <Navbars />
+          <Navbars
+            {...this.props}
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+          />
+
           <Switch>
             <Route exact path={"/"} component={Home} />
-
-            {/* //Login Home page */}
-            <Route exact path={"/LoginIndex"} render={props => (
-              <LoginIndex
-                {...props}
-                handleLogin={this.handleLogin}
-                loggedInStatus={this.state.loggedInStatus} />
-            )} />
-
-
+            <Route exact path={"/home"} component={Home} />
 
             <Route exact path={"/member"} render={props => (
               <Member
                 {...props}
-
                 loggedInStatus={this.state.loggedInStatus}
               />
             )}
             />
-
-
 
             <Route exact path="/product" component={Product} />
             <Route exact path="/category" component={ManagerTest} />

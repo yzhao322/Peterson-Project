@@ -1,22 +1,37 @@
-import React, { useState, useEffect, Component } from "react";
+import React from "react";
 
 import LoginIndex from "../Login/index";
 // import UserMenu from "../userMenu/index";
-import { Modal, NavDropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Modal, NavDropdown, Nav, Navbar, Form, Button } from "react-bootstrap";
 
-
+import "./style.css";
 
 class Navbars extends React.Component {
-
   constructor(props) {
     super(props);
-
-   
+    this.state = {
+      loggedInStatus: "Logged_In",
+      user: {},
+      show: false,
+      showUser: false,
+      showLogin: true
+    }
+    console.log("y", props.loggedInStatus)
+    console.log("x", props.data)
   }
 
+  componentWillMount() {
 
+    let data = [];
+    if (localStorage && localStorage.getItem('userData')) {
+      data = JSON.parse(localStorage.getItem('userData'));
+ 
+    }
 
-  state = { show: false };
+    this.setState({ user: data });
+    console.log(data, this.state.user);
+  }
+
 
   showModal = () => {
     this.setState({ show: true });
@@ -42,27 +57,40 @@ class Navbars extends React.Component {
               <Nav.Link href="/category">Category</Nav.Link>
 
 
-              <img src="./assets/imgs/person.svg"></img>
 
-              <NavDropdown title="User:xxx" id="basic-nav-dropdown">
+            
+                <NavDropdown
+                  title={"User: " + this.state.user.username}
+                  id="basic-nav-dropdown"
+                  className= { !this.state.user.username ? 'hidden' : ''}
+                >
 
-                <NavDropdown.Item href="/shopping-cart">Shopping Cart</NavDropdown.Item>
-                <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item>
-                <NavDropdown.Item href="/contacts">Contact Us</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
-              </NavDropdown>
-
+                  <img src="./assets/imgs/person.svg" alt="icon"></img>
+                  <NavDropdown.Item href="/shopping-cart">Shopping Cart</NavDropdown.Item>
+                  <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item>
+                  <NavDropdown.Item href="/contacts">Contact Us</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4"
+                    onClick={this.props.handleLogout}
+                  >Sign Out</NavDropdown.Item>
+                </NavDropdown>
+            
             </Nav>
 
             <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-success">Search</Button>
+              {/* disable search function for now， Nothing is built here yet */}
+              {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <Button variant="outline-success">Search</Button> */}
               <hr />
 
               {/* modal open button */}
-              <Button type="button" onClick= {this.showModal}>Login</Button>
-
+              
+              <Button
+                type="button"
+                onClick={this.showModal}
+                className= { !this.state.user.username ? '' : 'hidden'}
+              >Login</Button>
+             
 
             </Form>
 
@@ -71,8 +99,11 @@ class Navbars extends React.Component {
           {/* modal window front end set up - body */}
           <Modal show={this.state.show}>
 
-            <LoginIndex />
-            <Button type="button" onClick= {this.hideModal}>close</Button>
+            <LoginIndex
+              handleLogin={this.props.handleLogin}
+              loggedInStatus={this.props.loggedInStatus}
+            />
+            <Button type="button" onClick={this.hideModal}>close</Button>
 
           </Modal>
           {/* modal end */}

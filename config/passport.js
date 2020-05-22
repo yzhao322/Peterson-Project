@@ -19,6 +19,7 @@ passport.use(new LocalStrategy(
       if (err) { return done(err); }
       if (!user) { 
         console.log("Incorrect email");
+        
         return done(null, false,{
         message: "Incorrect email."
       }); 
@@ -27,6 +28,7 @@ passport.use(new LocalStrategy(
       if (!user.validPassword(password)) {
 
         console.log("Incorrect password");
+        alert("Incorrect email")
         return done(null, false, {
           message: "Incorrect password."
         });
