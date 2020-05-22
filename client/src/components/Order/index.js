@@ -135,6 +135,7 @@ const Order = (props) => {
         </select>
         <input
           type="number"
+          min="0"
           max={state.item.inventory || 0}
           name="inventory"
           value={state.quantity}
@@ -145,7 +146,7 @@ const Order = (props) => {
       <ul>
         {state.order.map((item, i) => (
           <li key={i + "-order"}>
-            {item.name} {item.quantity}
+            {item.name} {item.quantity} ${item.quantity * item.price}
           </li>
         ))}
       </ul>
