@@ -50,7 +50,6 @@ class App extends React.Component {
           <Navbars />
           <Switch>
             <Route exact path={"/"} component={Home} />
-
             {/* //Login Home page */}
             <Route exact path={"/LoginIndex"} render={props => (
               <LoginIndex
