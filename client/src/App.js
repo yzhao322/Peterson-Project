@@ -66,7 +66,19 @@ class App extends React.Component {
 
           <Switch>
             <Route exact path={"/"} component={Home} />
+<<<<<<< HEAD
+            {/* //Login Home page */}
+            <Route exact path={"/LoginIndex"} render={props => (
+              <LoginIndex
+                {...props}
+                handleLogin={this.handleLogin}
+                loggedInStatus={this.state.loggedInStatus} />
+            )} />
+
+
+=======
             <Route exact path={"/home"} component={Home} />
+>>>>>>> 6df9e3627ce2f45a739e3f4a80868b946a4382af
 
             <Route exact path={"/member"} render={props => (
               <Member
