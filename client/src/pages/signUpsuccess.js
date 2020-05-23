@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import Jumbotron from "../components/Jumbotron";
-import {Nav} from "react-bootstrap";
+
 
 const signUpsuccess = () => {
   return (

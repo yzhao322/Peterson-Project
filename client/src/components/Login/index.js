@@ -1,10 +1,10 @@
 import React from "react";
-import { hasHistory } from "react-router-dom";
+// import { hasHistory } from "react-router-dom";
 import "./index.scss";
 import Login from "../Login/login";
 import Register from "../Login/regiester";
 
-import API from "../../utils/API";
+// import API from "../../utils/API";
 
 //login home page
 
@@ -20,15 +20,15 @@ class LoginIndex extends React.Component {
   }
 
  
-  handleSuccessfulAuth(props,data) {
+  handleSuccessfulAuth(data) {
     //update parent compoent
+    
+    console.log('x', data);
     this.props.handleLogin(data);
-    window.location.replace("/member");
-
+    window.location.replace("/");
   }
 
   componentDidMount() {
-    this.checkLoginStatus();
     //Add .right by default
     this.rightSide.classList.add("right");
   }
@@ -47,26 +47,7 @@ class LoginIndex extends React.Component {
     this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
   }
 
-  checkLoginStatus() {
-    API.getUser()
-      .then(res => {
-        if (res.data.isloggedIn && this.state.loggedInStatus === "Not_Logged_In") {
-          this.setState({
-            loggedInStatus: "Logged_In",
-            user: res.data.user
-          })
-        } else if (!res.data.isloggedIn & this.state.loggedInStatus === "Logged_In") {
-          this.setState({
-            loggedInStatus: "Not_Logged_In",
-            user: {}
-          })
-        }
 
-        console.log(" I am here!", res)
-        // console.log(this.props)
-      })
-      .catch(err => console.log(err));
-  }
 
 
 

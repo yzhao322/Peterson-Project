@@ -1,5 +1,5 @@
 import React from "react";
-import Wrapper from "../components/Wrapper";
+// import Wrapper from "../components/Wrapper";
 import AddProduce from "../components/Manager/AddProduce";
 import RemoveProduce from "../components/Manager/RemoveProduce";
 

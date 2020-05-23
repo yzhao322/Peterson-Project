@@ -1,7 +1,7 @@
 import React from "react";
-import ProductList from "../components/ProductList";
+// import ProductList from "../components/ProductList";
 import Wrapper from "../components/Wrapper";
-import ProductDetails from "../components/ProductDetails";
+// import ProductDetails from "../components/ProductDetails";
 import Order from "../components/Order";
 
 const Product = () => {

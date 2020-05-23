@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import { Modal, Dropdown, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap"; import "react-bootstrap";
+import { Modal, Dropdown, Form, Button } from "react-bootstrap"; import "react-bootstrap";
 import API from "../../utils/API";
 
 
@@ -37,19 +37,20 @@ class Login extends React.Component {
       setShow: false,
       type: 'input',
       hidden: true,
+      LogginError: ""
     };
 
 
     this.toggleShow = this.toggleShow.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    
+
   }
 
   handleSubmit = e => {
     e.preventDefault();
 
-
+    
     if (formValid(this.state)) {
       console.log(`
         --SUBMITTING--
@@ -60,7 +61,6 @@ class Login extends React.Component {
 
     } else {
       this.setState({ setShow: true });
-
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
 
@@ -68,16 +68,19 @@ class Login extends React.Component {
     API.postLogin(this.state)
       .then((response) => {
 
-        // this.setState({isLoggedIn:true});
-        console.log(response.data.title, "Logged in!!!", this, this.state)
-
+       
+        console.log(response.data.title, "Logged in!!!", this.state)
+        localStorage.setItem('userData',
+        JSON.stringify(this.state));
 
         if (response.data.title === "Member") {
-
-          this.props.handleSuccessfulAuth(response.data);
+          
+          this.props.handleSuccessfulAuth(this.state);
         }
       }).catch((err) => {
-        console.log(err)
+        
+        this.setState({ setShow: true });
+        this.setState({ LogginError : "username/password incorrect"})
       });
 
   }
@@ -190,11 +193,11 @@ class Login extends React.Component {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-sm">
-              <span className="modalTitle"> FORM INVALID</span>
+              <span className="modalTitle"> OOOps!</span>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <span className="errorMessage">FORM INVALID</span>
+          <span className="errorMessage"> {this.state.LogginError}</span>
           </Modal.Body>
           <Modal.Footer>
             <button
