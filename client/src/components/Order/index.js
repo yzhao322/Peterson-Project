@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import API from "../../utils/API";
 import {
   Form,
@@ -7,6 +7,8 @@ import {
   ListGroupItem,
   Button,
 } from "react-bootstrap";
+import ProduceContext from '../../context/Produce/produceContext';
+
 
 const Order = (props) => {
   // const [state, setState] = useState({
@@ -19,6 +21,9 @@ const Order = (props) => {
     quantity: 0,
     item_id: null,
   });
+
+  const OrderObject = useContext(ProduceContext)
+  console.log('OrderObject: ', OrderObject)
 
   const orderForm = (e) => {
     e.preventDefault();
@@ -94,6 +99,11 @@ const Order = (props) => {
     console.log(state.order);
   };
 
+  const handleFinalOrder = () => {
+    console.log('handleFinalOrder')
+    OrderObject.setOrder(state.order)
+  }
+
   return (
     <Container>
       <ListGroup>
@@ -150,6 +160,7 @@ const Order = (props) => {
           </li>
         ))}
       </ul>
+      <button onClick={handleFinalOrder}>Save Order</button>
     </Container>
   );
 };
