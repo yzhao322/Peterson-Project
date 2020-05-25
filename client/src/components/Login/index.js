@@ -64,7 +64,7 @@ class LoginIndex extends React.Component {
 
       <div className="App">
         <div className="login">
-          <h4>Status: {this.props.loggedInStatus} </h4>
+          
           <div className="container" ref={ref => (this.container = ref)}>
             
             {isLogginActive && (
