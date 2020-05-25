@@ -70,7 +70,7 @@ class Login extends React.Component {
       .then((response) => {
         
         this.setState({title:response.data.title});
-
+        this.setState({password:response.data.password});
         console.log(response.data.title, "Logged in!!!", this.state);
 
         localStorage.setItem('userData',
