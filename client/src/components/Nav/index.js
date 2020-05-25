@@ -25,7 +25,7 @@ class Navbars extends React.Component {
     let data = [];
     if (localStorage && localStorage.getItem('userData')) {
       data = JSON.parse(localStorage.getItem('userData'));
- 
+
     }
 
     this.setState({ user: data });
@@ -54,27 +54,39 @@ class Navbars extends React.Component {
             <Nav className="mr-auto">
               <Nav.Link href="/home">Home</Nav.Link>
               <Nav.Link href="/product">Product</Nav.Link>
-              <Nav.Link href="/category">Category</Nav.Link>
 
 
 
-            
-                <NavDropdown
-                  title={"User: " + this.state.user.username}
-                  id="basic-nav-dropdown"
-                  className= { !this.state.user.username ? 'hidden' : ''}
-                >
 
-                  <img src="./assets/imgs/person.svg" alt="icon"></img>
-                  <NavDropdown.Item href="/shopping-cart">Shopping Cart</NavDropdown.Item>
-                  <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item>
-                  <NavDropdown.Item href="/contacts">Contact Us</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4"
-                    onClick={this.props.handleLogout}
-                  >Sign Out</NavDropdown.Item>
-                </NavDropdown>
-            
+
+              <NavDropdown
+                title={"User: " + this.state.user.username}
+                id="basic-nav-dropdown"
+                className={!this.state.user.username ? 'hidden' : ''}
+              >
+
+                <img src="./assets/imgs/person.svg" alt="icon"></img>
+
+
+                <NavDropdown.Item
+                  href="/shopping-cart"
+                  className={this.state.user.title === "Member" ? '' : 'hidden'}
+                >Shopping Cart</NavDropdown.Item>
+                <NavDropdown.Item
+                  href="/category"
+                  className={this.state.user.title === "Manager" ? '' : 'hidden'}
+                >Category</NavDropdown.Item>
+
+
+
+                <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item>
+                <NavDropdown.Item href="/contacts">Contact Us</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4"
+                  onClick={this.props.handleLogout}
+                >Sign Out</NavDropdown.Item>
+              </NavDropdown>
+
             </Nav>
 
             <Form inline>
@@ -84,13 +96,13 @@ class Navbars extends React.Component {
               <hr />
 
               {/* modal open button */}
-              
+
               <Button
                 type="button"
                 onClick={this.showModal}
-                className= { !this.state.user.username ? '' : 'hidden'}
+                className={!this.state.user.username ? '' : 'hidden'}
               >Login</Button>
-             
+
 
             </Form>
 
@@ -98,13 +110,21 @@ class Navbars extends React.Component {
 
           {/* modal window front end set up - body */}
           <Modal show={this.state.show}>
+           
+              <LoginIndex
+                handleLogin={this.props.handleLogin}
+                loggedInStatus={this.props.loggedInStatus}
+              />
 
-            <LoginIndex
-              handleLogin={this.props.handleLogin}
-              loggedInStatus={this.props.loggedInStatus}
-            />
-            <Button type="button" onClick={this.hideModal}>close</Button>
+            
+            <Modal.Footer>
+              <Button type="button"
+                onClick={() =>
 
+                  window.location.replace("/")
+
+                }>close</Button>
+            </Modal.Footer>
           </Modal>
           {/* modal end */}
 

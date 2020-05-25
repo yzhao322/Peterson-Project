@@ -261,9 +261,13 @@ class Register extends React.Component {
             <span className="errorMessage"> {this.state.RegisterError}</span>
             </Modal.Body>
             <Modal.Footer>
-              <button
-                onClick={() => this.setState({ setShow: false })}
-              >Close</button>
+            <button
+              onClick={() => 
+                {this.setState({ setShow: false });
+                window.location.replace("/");
+                localStorage.removeItem('userData');
+                localStorage.removeItem('data');}}
+            >Close</button>
             </Modal.Footer>
           </Modal>
         </div>

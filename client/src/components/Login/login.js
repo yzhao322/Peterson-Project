@@ -29,6 +29,7 @@ class Login extends React.Component {
       password: null,
       title: "Member",
       isLoggedIn: true,
+     
       formErrors: {
         username: "",
         password: "",
@@ -50,7 +51,7 @@ class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    
+
     if (formValid(this.state)) {
       console.log(`
         --SUBMITTING--
@@ -67,20 +68,21 @@ class Login extends React.Component {
 
     API.postLogin(this.state)
       .then((response) => {
-
-       
-        console.log(response.data.title, "Logged in!!!", this.state)
-        localStorage.setItem('userData',
-        JSON.stringify(this.state));
-
-        if (response.data.title === "Member") {
-          
-          this.props.handleSuccessfulAuth(this.state);
-        }
-      }).catch((err) => {
         
+        this.setState({title:response.data.title});
+
+        console.log(response.data.title, "Logged in!!!", this.state);
+
+        localStorage.setItem('userData',
+          JSON.stringify(this.state));
+
+        this.props.handleSuccessfulAuth(this.state);
+
+      }).catch((err) => {
+
         this.setState({ setShow: true });
-        this.setState({ LogginError : "username/password incorrect"})
+        this.setState({ LogginError: "username/password incorrect" })
+        
       });
 
   }
@@ -130,7 +132,7 @@ class Login extends React.Component {
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
         <div className="content">
-          <h4>Status: {this.props.loggedInStatus} </h4>
+          
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -159,13 +161,13 @@ class Login extends React.Component {
             <Form inline>
 
 
-              <Dropdown
+              {/* <Dropdown
                 name="title"
                 id="selector"
                 onChange={this.handleChange} >
                 <Dropdown.Item value="member" selected>Member</Dropdown.Item>
                 <Dropdown.Item value="manager">Manager</Dropdown.Item>
-              </Dropdown>
+              </Dropdown> */}
 
               {formErrors.password.length > 0 && (
                 <span className="errorMessage"> {formErrors.password}</span>
@@ -197,11 +199,15 @@ class Login extends React.Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <span className="errorMessage"> {this.state.LogginError}</span>
+            <span className="errorMessage"> {this.state.LogginError}</span>
           </Modal.Body>
           <Modal.Footer>
             <button
-              onClick={() => this.setState({ setShow: false })}
+              onClick={() => 
+                {this.setState({ setShow: false });
+                window.location.replace("/");
+                localStorage.removeItem('userData');
+                localStorage.removeItem('data');}}
             >Close</button>
           </Modal.Footer>
         </Modal>
