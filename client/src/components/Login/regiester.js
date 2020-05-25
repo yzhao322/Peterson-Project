@@ -42,13 +42,13 @@ class Register extends React.Component {
         username: "",
         email: "",
         password: "",
-        address: "",
-        msg: ""
+        address: ""
       },
       setShow: false,
       type: 'input',
       score: 'null',
       hidden: true,
+      RegisterError: ""
     };
 
 
@@ -76,14 +76,14 @@ class Register extends React.Component {
         score: pw.score
       });
     }
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value });
 
   }
 
 
   handleSubmit = e => {
 
-    // let formErrors = { ...this.state.formErrors };
+    
     e.preventDefault();
 
     if (formValid(this.state)) {
@@ -98,18 +98,20 @@ class Register extends React.Component {
 
     } else {
       this.setState({ setShow: true });
-      this.setState.formErrors.msg = "FORM INVALID - DISPLAY ERROR MESSAGE";
+      this.setState({ RegisterError: "FORM INVALID - DISPLAY ERROR MESSAGE" });
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
 
     API.postUser(this.state)
       .then((response) => {
-
-        window.location.replace("/signUpsuccess")
+        console.log("registered:", response);
+        window.location.replace("/signUpsuccess");
       }
       )
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        this.setState({ setShow: true });
+        this.setState({ RegisterError : "username has already been taken"})
+        
       })
 
 
@@ -155,116 +157,117 @@ class Register extends React.Component {
   };
 
 
-  render(props) {
+  render() {
 
     const { formErrors } = this.state;
     // let setShowClose = () => this.setState({ setShow: false });
 
 
     return (
+      <>
+        <div className="base-container" ref={this.props.containerRef}>
+          <div className="header">Register</div>
+          <div className="content">
+            <div className="form">
+              <div className="form-group">
 
-      <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Register</div>
-        <div className="content">
-          <div className="form">
-            <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="username"
+                  onChange={this.handleChange}
+                />
+                {formErrors.username.length > 0 && (
+                  <span className="errorMessage"> {formErrors.username}</span>
+                )}
+              </div>
 
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                name="username"
-                placeholder="username"
-                onChange={this.handleChange}
-              />
-              {formErrors.username.length > 0 && (
-                <span className="errorMessage"> {formErrors.username}</span>
-              )}
-            </div>
+              <div className="form-group">
 
-            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="email"
+                  onChange={this.handleChange}
+                />
+                {formErrors.email.length > 0 && (
+                  <span className="errorMessage"> {formErrors.email}</span>
+                )}
+              </div>
 
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="email"
-                onChange={this.handleChange}
-              />
-              {formErrors.email.length > 0 && (
-                <span className="errorMessage"> {formErrors.email}</span>
-              )}
-            </div>
+              <div className="form-group">
 
-            <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="address"
+                  onChange={this.handleChange}
+                />
+                {formErrors.address.length > 0 && (
+                  <span className="errorMessage"> {formErrors.Address}</span>
+                )}
+              </div>
 
-              <label htmlFor="address">Address</label>
-              <input
-                type="text"
-                name="address"
-                placeholder="address"
-                onChange={this.handleChange}
-              />
-              {formErrors.address.length > 0 && (
-                <span className="errorMessage"> {formErrors.Address}</span>
-              )}
-            </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
+                <input
+                  className="password__input"
+                  type={this.state.hidden ? "password" : "text"}
+                  name="password"
+                  placeholder="password"
+                  // onChange={this.handleChange}
+                  onChange={this.passwordStrength}
+                />
+                <Button onClick={this.toggleShow}
+                >{this.state.type === 'input' ? 'Show' : 'Hide'}</Button>
 
-              <input
-                className="password__input"
-                type={this.state.hidden ? "password" : "text"}
-                name="password"
-                placeholder="password"
-                // onChange={this.handleChange}
-                onChange={this.passwordStrength}
-              />
-              <Button onClick={this.toggleShow}
-              >{this.state.type === 'input' ? 'Show' : 'Hide'}</Button>
+                <span className="password__strength" data-score={this.state.score} />
 
-              <span className="password__strength" data-score={this.state.score} />
+                {formErrors.password.length > 0 && (
+                  <span className="errorMessage"> {formErrors.password}</span>
+                )}
 
-              {formErrors.password.length > 0 && (
-                <span className="errorMessage"> {formErrors.password}</span>
-              )}
-
-            </div>
-            <Button
-              type="button"
-              className="btn"
-              onClick={this.handleSubmit}
-            >
-              Register
+              </div>
+              <Button
+                type="button"
+                className="btn"
+                onClick={this.handleSubmit}
+              >
+                Register
           </Button>
+            </div>
           </div>
-        </div>
-        <div className="footer">
+          <div className="footer">
 
-        </div>
+          </div>
 
 
-        <Modal
-          show={this.state.setShow}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="example-modal-sizes-title-sm">
-              Sorry...
+          <Modal
+            show={this.state.setShow}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-sm">
+              OOOps...
           </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <span className="errorMessage"> {formErrors.msg}</span>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              onClick={() => this.setState({ setShow: false })}
-            >Close</button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+            </Modal.Header>
+            <Modal.Body>
+            <span className="errorMessage"> {this.state.RegisterError}</span>
+            </Modal.Body>
+            <Modal.Footer>
+              <button
+                onClick={() => this.setState({ setShow: false })}
+              >Close</button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </>
     );
   }
 }

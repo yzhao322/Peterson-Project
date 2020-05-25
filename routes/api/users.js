@@ -47,13 +47,16 @@ router.get("/login", (req, res) => {
   console.log(req.user,"3");
   User.find()
     .sort({ date: -1 })
-    .then((users) => res.json(users));
+    .then((users) => res.json(users))
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 
 router.post("/signup", (req, res) => {
   console.log(req.body,"Signup");
-  User.create(req.body).then((user) => res.json(user));
+  User.create(req.body)
+  .then((user) => res.json(user))
+  .catch((err) => res.status(404).json({ success: false }));;
 });
 
 router.delete("/:id", (req, res) => {

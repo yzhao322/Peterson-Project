@@ -8,7 +8,15 @@ export default {
   postUser: (data) => axios.post("/api/users/signup", data),
 
   //login post
-  postLogin: (data) => axios.post("/api/users/login", data),
+  postLogin: (data) => axios.post("/api/users/login", data, { withCredentials: true }),
+
+  removeproduce: (data) => axios.put("/api/produces", data),
+  // getUser: (_id) => axios.get("/api/user/" + _id),
+  getUser: () => axios.get("/api/users"),
+
 
   getProduce: () => axios.get("/api/produces"),
+
+  update: () => axios.get("/api/produces")
+
 };

@@ -6,7 +6,9 @@ import API from "../utils/API";
 
 const Home = (props) => {
   const [produce, produceState] = useState([]);
+  
 
+  
   useEffect(() => {
     API.getProduce()
       .then((res) => {
@@ -19,7 +21,7 @@ const Home = (props) => {
   return (
     <Wrapper>
       <Header />
-      <h1 style={{ color: "White", margin: "30px" }} > Status: {props.loggedInStatus}</h1>
+      {/* <h1 style={{ color: "White", margin: "30px" }} > Status: {props.loggedInStatus}</h1> */}
 
       <br></br>
       <ProductList produce={produce} />

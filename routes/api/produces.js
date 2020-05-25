@@ -18,4 +18,16 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
+router.put("/", (req, res) => {
+  console.log('req.body._id: ', req.body._id)
+  console.log('req.body.inventory: ', req.body.inventory)
+  Produce.findByIdAndUpdate(
+    req.body._id,
+    { inventory: req.body.inventory },
+    { new: true }
+  )
+    .then((produces) => res.json(produces))
+    .catch(err => console.log('end point err: ', err))
+})
+
 module.exports = router;
