@@ -20,6 +20,12 @@ export default () => {
     API.postProduce(state)
       .then((response) => console.log(response))
       .catch((err) => console.warn(err));
+    setState({
+      ...state,
+      name: "",
+      quantity: 0,
+      description: "",
+    });
   };
 
   return (

@@ -106,7 +106,7 @@ const Order = (props) => {
 
   return (
     <Container>
-      <ListGroup>
+      {/* <ListGroup>
         <Form onSubmit={orderForm}>
           {state.produce.map(({ id, name }) => (
             <ListGroupItem style={{ border: "black" }}>
@@ -128,14 +128,20 @@ const Order = (props) => {
             Add to Cart
           </Button>
         </Form>
-      </ListGroup>
+      </ListGroup> */}
 
-      {/* <Form.Group controlId="formBasicCheckbox"> */}
 
-      {/* </Form.Group> */}
+      {/* <Form.Group controlId="exampleForm.SelectCustom">
+    <Form.Label>Custom select</Form.Label>
+    <Form.Control as="select" custom>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option> */}
 
-      <form onSubmit={addOrder}>
-        <select onChange={selectItem} value={state.item_id}>
+      <h1 style={{ color: "salmon" }}>Order Produce</h1>
+      <Form onSubmit={addOrder} style={{ margin: 5 }}>
+        <select onChange={selectItem} value={state.item_id} style={{ margin: 5 }}>
           <option value={null}>Choose Item</option>
           {state.produce.map((p, i) => (
             <option key={i + "prodce"} value={p._id}>
@@ -143,7 +149,7 @@ const Order = (props) => {
             </option>
           ))}
         </select>
-        <input
+        <Form.Control style={{ margin: 5 }}
           type="number"
           min="0"
           max={state.item.inventory || 0}
@@ -151,16 +157,19 @@ const Order = (props) => {
           value={state.quantity}
           onChange={handleChange}
         />
-        <button type="submit">Order</button>
-      </form>
-      <ul>
+        <Button type="submit" style={{ margin: 5 }}>Order</Button>
+      </Form>
+      <ListGroup as="ul">
+        {/* <ul> */}
         {state.order.map((item, i) => (
-          <li key={i + "-order"}>
+
+          <ListGroup.Item as="li" key={i + "-order"}>
             {item.name} {item.quantity} ${item.quantity * item.price}
-          </li>
+          </ListGroup.Item>
         ))}
-      </ul>
-      <button onClick={handleFinalOrder}>Save Order</button>
+        {/* </ul> */}
+      </ListGroup>
+      <Button onClick={handleFinalOrder}>Save Order</Button>
     </Container>
   );
 };
