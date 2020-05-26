@@ -15,6 +15,17 @@ export default () => {
     });
   };
 
+  // const RemoveProduce = (id) => {
+  //   API.removeproduce(id)
+  //   .then(() => setState({
+  //     ...state,
+  //     produce: state.produce.filter((produce) =>{
+  //       return produce._id !== produce._id
+  //       _id : id
+  //     })
+  //     }))
+  // }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     API.postProduce(state)
