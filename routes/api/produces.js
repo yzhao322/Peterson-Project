@@ -5,8 +5,7 @@ const Produce = require("../../models/produce");
 
 //get api/items
 router.get("/", (req, res) => {
-  Produce.find()
-    .then((produces) => res.json(produces));
+  Produce.find().then((produces) => res.json(produces));
 });
 
 router.post("/", (req, res) => {
@@ -14,7 +13,7 @@ router.post("/", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Produce.findById(req.params.id)
+  Produce.findById({ _id: req.params.id })
     .then((produce) => produce.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
