@@ -2,6 +2,8 @@ import axios from "axios";
 
 export default {
   postProduce: (data) => axios.post("/api/produces", data),
+
+  saveOrder: (data) => axios.post("/api/orders", data),
   // getProduces: () => axios.get("/api/produces"),
   removeproduce: (id) => axios.delete("/api/produces" + id),
 

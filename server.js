@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 
 app.use("/api/orderhistory", orderhistory);
 app.use("/api/produces", produces);
-app.use("/api/order", order);
+app.use("/api/orders", orders);
 app.use("/api/users", users);
 
 

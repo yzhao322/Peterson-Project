@@ -23,11 +23,11 @@ const Order = (props) => {
   });
 
   const OrderObject = useContext(ProduceContext)
-  console.log('OrderObject: ', OrderObject)
+  
 
   const orderForm = (e) => {
     e.preventDefault();
-    console.log("Order submitted", state.order);
+    
   };
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Order = (props) => {
         [e.target.name]: e.target.value,
       },
     });
-    console.log("handled");
+    
   };
 
   const handleChange = (e) => {
@@ -96,19 +96,25 @@ const Order = (props) => {
       quantity: 0,
       item_id: null,
     });
-    console.log(state.order);
+   
   };
 
   const handleFinalOrder = () => {
     console.log('handleFinalOrder')
     OrderObject.setOrder(state.order)
-  }
+    // API.saveOrder(state.order)
+    // .then((response) =>
+    // setState({
+    //   name:""
+    // }))
+    }
+  
 
   return (
     <Container>
       <ListGroup>
         <Form onSubmit={orderForm}>
-          {state.produce.map(({ id, name }) => (
+          {state.produce.map(({ name }) => (
             <ListGroupItem style={{ border: "black" }}>
               <Form.Check
                 type="checkbox"
