@@ -7,10 +7,12 @@ function OrderSummary() {
   const { state, dispatch } = useProduceContext();
 
   console.log('Context orders: ', state)
-
+  const finalOrder = {
+    items: state.order
+  }
   const submitOrder = (e) => {
     e.preventDefault();
-    API.saveOrder(state)
+    API.saveOrder(finalOrder)
       .then((response) =>
         console.log(response)
       )
