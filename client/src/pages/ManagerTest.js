@@ -9,6 +9,8 @@ const ManagerTest = () => {
       <div className="row">
         <div className="col-sm-5">
           <AddProduce />
+        </div>
+        <div className="col-sm-5">
           <RemoveProduce />
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 import LoginIndex from "../Login/index";
 // import UserMenu from "../userMenu/index";
 import { Modal, NavDropdown, Nav, Navbar, Form, Button } from "react-bootstrap";
@@ -72,6 +72,14 @@ class Navbars extends React.Component {
                   href="/shopping-cart"
                   className={this.state.user.title === "Member" ? '' : 'hidden'}
                 >Shopping Cart</NavDropdown.Item>
+
+
+
+                <div className={this.state.user.title === "Member" ? '' : 'hidden'}>
+                  <Link to="/shopping-cart">NEW SUMMARY</Link>
+                </div>
+
+
                 <NavDropdown.Item
                   href="/category"
                   className={this.state.user.title === "Manager" ? '' : 'hidden'}
@@ -110,13 +118,13 @@ class Navbars extends React.Component {
 
           {/* modal window front end set up - body */}
           <Modal show={this.state.show}>
-           
-              <LoginIndex
-                handleLogin={this.props.handleLogin}
-                loggedInStatus={this.props.loggedInStatus}
-              />
 
-            
+            <LoginIndex
+              handleLogin={this.props.handleLogin}
+              loggedInStatus={this.props.loggedInStatus}
+            />
+
+
             <Modal.Footer>
               <Button type="button"
                 onClick={() =>

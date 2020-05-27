@@ -17,6 +17,8 @@ export default {
 
   getProduce: () => axios.get("/api/produces"),
 
-  update: () => axios.get("/api/produces")
+  update: () => axios.get("/api/produces"),
+
+  saveOrder: (data) => axios.post("/api/orders", data),
 
 };

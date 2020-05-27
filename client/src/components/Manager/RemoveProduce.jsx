@@ -53,30 +53,6 @@ const RemoveProduce = () => {
     console.log("r: ", r);
     const resolvedPromises = await Promise.all(r);
     console.log("resolvedPromises", resolvedPromises);
-
-    // resolvedPromises
-    //   .then((res) => console.log("res: ", res))
-    //   .catch((err) => console.log("handlesubmit err: ", err));
-    /*  API.removeproduce(updatedProduce)
-      .then((res) => {
-        console.log("handleSubmit res: ", res);
-      })
-      .catch((err) => console.log("handlesubmit err: ", err)); */
-    // API.removeproduce(id).then(() =>
-    //   setState({
-    //     ...state,
-    //     produce: state.produce.filter((produce) => {
-    //       return produce._id !== produce._id;
-    //     }),
-    //   })
-    // );
-    // API.postProduce(state)
-    //   .then((response) =>
-    //     setState({
-    //       produce: [],
-    //     })
-    //   )
-    //   .catch((err) => console.warn(err));
   };
   console.log(updatedProduce);
   //   return null;
