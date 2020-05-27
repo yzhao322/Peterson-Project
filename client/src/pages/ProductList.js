@@ -3,7 +3,6 @@ import React from "react";
 import Wrapper from "../components/Wrapper";
 // import ProductDetails from "../components/ProductDetails";
 import Order from "../components/Order";
-import ProduceState from '../context/Produce/ProduceState'
 
 const Product = () => {
   return (
@@ -11,9 +10,8 @@ const Product = () => {
       <br></br>
       <div className="row">
         <div className="col-sm-5" style={{ backgroundColor: "white" }}>
-          <ProduceState>
-            <Order />
-          </ProduceState>
+
+          <Order />
         </div>
         {/* <div className="col-sm-7">
           <ProductList />

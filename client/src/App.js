@@ -23,6 +23,8 @@ import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
 // import product from "./pages/Product";
 
+import { ProduceProvider } from './context/ProduceContext'
+
 class App extends React.Component {
   constructor() {
     super();
@@ -57,7 +59,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <>
+        <ProduceProvider>
           <Navbars
             {...this.props}
             handleLogin={this.handleLogin}
@@ -93,7 +95,7 @@ class App extends React.Component {
 
           </Switch>
           <Footer />
-        </>
+        </ProduceProvider>
       </Router>
     )
   }

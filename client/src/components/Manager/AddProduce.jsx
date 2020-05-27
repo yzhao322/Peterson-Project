@@ -21,6 +21,7 @@ const AddProduce = () => {
     API.postProduce(state)
       .then((response) =>
         setState({
+          ...state,
           name: "",
           inventory: 0,
           price: 0,

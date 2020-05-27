@@ -2,7 +2,6 @@ import React from "react";
 import Wrapper from "../components/Wrapper";
 import PaymentDetails from "../components/PaymentDetails"
 import OrderSummary from "../components/OrderSummary";
-import ProduceState from '../context/Produce/ProduceState'
 
 
 const ShopingCart = () => {
@@ -14,9 +13,7 @@ const ShopingCart = () => {
                     <PaymentDetails />
                 </div>
                 <div className="col-sm-7">
-                    <ProduceState>
-                        <OrderSummary />
-                    </ProduceState>
+                    <OrderSummary />
                 </div>
             </div>
         </Wrapper>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import {
   Form,
@@ -7,13 +7,12 @@ import {
   ListGroupItem,
   Button,
 } from "react-bootstrap";
-import ProduceContext from '../../context/Produce/produceContext';
+import { useProduceContext } from '../../context/ProduceContext'
 
 
 const Order = (props) => {
-  // const [state, setState] = useState({
-  //   produce: [{ name: "", inventory: 0, price: 0, description: "" }],
-  // });
+  const { state: produce, dispatch, types } = useProduceContext();
+  console.log(produce)
   const [state, setState] = useState({
     produce: [],
     item: {},
@@ -21,9 +20,6 @@ const Order = (props) => {
     quantity: 0,
     item_id: null,
   });
-
-  const OrderObject = useContext(ProduceContext)
-  console.log('OrderObject: ', OrderObject)
 
   const orderForm = (e) => {
     e.preventDefault();
@@ -100,45 +96,14 @@ const Order = (props) => {
   };
 
   const handleFinalOrder = () => {
-    console.log('handleFinalOrder')
-    OrderObject.setOrder(state.order)
+    dispatch({
+      type: types.SET_ORDERS,
+      payload: state.order
+    })
   }
 
   return (
     <Container>
-      {/* <ListGroup>
-        <Form onSubmit={orderForm}>
-          {state.produce.map(({ id, name }) => (
-            <ListGroupItem style={{ border: "black" }}>
-              <Form.Check
-                type="checkbox"
-                label="add"
-                style={{ border: "black" }}
-              >
-                {name}
-                <Form.Control
-                  type="number"
-                  name={name}
-                  onChange={handleOrder}
-                />
-              </Form.Check>
-            </ListGroupItem>
-          ))}
-          <Button type="submit" color="light" style={{ marginBottom: "2rem" }}>
-            Add to Cart
-          </Button>
-        </Form>
-      </ListGroup> */}
-
-
-      {/* <Form.Group controlId="exampleForm.SelectCustom">
-    <Form.Label>Custom select</Form.Label>
-    <Form.Control as="select" custom>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option> */}
-
       <h1 style={{ color: "salmon" }}>Order Produce</h1>
       <Form onSubmit={addOrder} style={{ margin: 5 }}>
         <select onChange={selectItem} value={state.item_id} style={{ margin: 5 }}>
@@ -169,7 +134,7 @@ const Order = (props) => {
         ))}
         {/* </ul> */}
       </ListGroup>
-      <Button onClick={handleFinalOrder}>Save Order</Button>
+      <Button onClick={handleFinalOrder}>Save to Cart</Button>
     </Container>
   );
 };
