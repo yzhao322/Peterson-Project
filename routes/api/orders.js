@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  console.log('order req body: ', req.body)
   Order.create(req.body).then((order) => res.json(order));
 });
 
