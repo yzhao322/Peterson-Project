@@ -21,4 +21,6 @@ export default {
 
   saveOrder: (data) => axios.post("/api/orders", data),
 
+  getOrder : () => axios.get("/api/orders")
+
 };

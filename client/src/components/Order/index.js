@@ -24,7 +24,7 @@ const Order = (props) => {
 
   const orderForm = (e) => {
     e.preventDefault();
-    console.log("Order submitted", state.order);
+    
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Order = (props) => {
         [e.target.name]: e.target.value,
       },
     });
-    console.log("handled");
+    
   };
 
   const handleChange = (e) => {
@@ -93,7 +93,7 @@ const Order = (props) => {
       quantity: 0,
       item_id: null,
     });
-    console.log(state.order);
+   
   };
 
   const handleFinalOrder = () => {

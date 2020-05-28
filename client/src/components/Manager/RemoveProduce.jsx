@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import {
   Form,
-  Container,
   ListGroup,
   ListGroupItem,
   Button,
-  DeleteBtn,
 } from "react-bootstrap";
 
 const RemoveProduce = () => {
