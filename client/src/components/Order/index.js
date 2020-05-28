@@ -6,6 +6,7 @@ import {
   ListGroup,
   ListGroupItem,
   Button,
+  Card
 } from "react-bootstrap";
 import { useProduceContext } from '../../context/ProduceContext'
 
@@ -122,19 +123,23 @@ const Order = (props) => {
           value={state.quantity}
           onChange={handleChange}
         />
-        <Button type="submit" style={{ margin: 5 }}>Order</Button>
+        {/* <Button type="submit" style={{ margin: 5 }}>Order</Button> */}
       </Form>
       <ListGroup as="ul">
         {/* <ul> */}
         {state.order.map((item, i) => (
 
           <ListGroup.Item as="li" key={i + "-order"}>
-            {item.name} {item.quantity} ${item.quantity * item.price}
+            <Card.Title>Product: {item.name}   </Card.Title>
+            <Card.Title>Quantity: {item.quantity}</Card.Title>
+            <Card.Title>Price: ${item.price * item.quantity}</Card.Title>
+
+            {/* {item.name}      Quantity:{item.quantity}      Price: ${item.quantity * item.price} */}
           </ListGroup.Item>
         ))}
         {/* </ul> */}
       </ListGroup>
-      <Button onClick={handleFinalOrder}>Save to Cart</Button>
+      <Button onClick={handleFinalOrder} style={{ margin: 5, background: "green" }}>Save to Cart</Button>
     </Container>
   );
 };

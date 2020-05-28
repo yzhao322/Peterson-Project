@@ -6,6 +6,7 @@ import API from "../../utils/API";
 function OrderSummary() {
   const { state, dispatch } = useProduceContext();
 
+
   console.log('Context orders: ', state)
   const finalOrder = {
     items: state.order
@@ -28,37 +29,21 @@ function OrderSummary() {
 
         <Card style={{ width: '100%' }}>
           <br></br>
-          <Card.Title>Product:{name}   </Card.Title>
-          <Card.Title>Price: ${price * quantity}</Card.Title>
-          <Card.Title>Quantity: {quantity}</Card.Title>
+          <Card.Title
+            value={state.order.name}
+          >Product:{name}
+          </Card.Title>
+          <Card.Title
+            value={state.order.price}
+          >Price: ${price * quantity}
+          </Card.Title>
+          <Card.Title
+            value={state.order.quantity}
+          >Quantity: {quantity}
+          </Card.Title>
           <br></br>
         </Card>
       ))}
-      {/* <Card.Title></Card.Title>
-        <Card.Text>
-          Details about product! Price, Quentity...
-      </Card.Text>
-        <Card.Link href="#">Delete From Cart</Card.Link>
-
-      </Card>
-      <Card style={{ width: '100%' }}>
-        <Card.Body>
-          <Card.Title>Product 2</Card.Title>
-          <Card.Text>
-            Details about product! Price, Quentity...
-      </Card.Text>
-          <Card.Link href="#">Delete From Cart</Card.Link>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: '100%' }}>
-        <Card.Body>
-          <Card.Title>Product 3</Card.Title>
-          <Card.Text>
-            Details about product! Price, Quentity...
-      </Card.Text>
-          <Card.Link href="#">Delete From Cart</Card.Link>
-        </Card.Body>
-      </Card> */}
       <br></br>
       <ListGroup>
         <ListGroup.Item>Subtotal:</ListGroup.Item>

@@ -68,10 +68,10 @@ class Navbars extends React.Component {
                 <img src="./assets/imgs/person.svg" alt="icon"></img>
 
 
-                <NavDropdown.Item
+                {/* <NavDropdown.Item
                   href="/shopping-cart"
                   className={this.state.user.title === "Member" ? '' : 'hidden'}
-                >Shopping Cart</NavDropdown.Item>
+                >Shopping Cart</NavDropdown.Item> */}
 
 
                 <NavDropdown.Item>
@@ -80,15 +80,24 @@ class Navbars extends React.Component {
                   </div>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item
-                  href="/category"
-                  className={this.state.user.title === "Manager" ? '' : 'hidden'}
-                >Category</NavDropdown.Item>
+
+                <NavDropdown.Item className={this.state.user.title === "Manager" ? '' : 'hidden'}>
+                  <Link to="/category">Update Inventory</Link>
+                </NavDropdown.Item>
+
+                <NavDropdown.Item className={this.state.user.title === "Manager" ? '' : 'hidden'}>
+                  <Link to="/transactionHistory">Orders</Link>
+                </NavDropdown.Item>
 
 
+                <NavDropdown.Item className={this.state.user.title === "Member" ? '' : 'hidden'}>
+                  <Link to="/transactionHistory">Transaction History</Link>
+                </NavDropdown.Item>
 
-                <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item>
-                <NavDropdown.Item href="/contacts">Contact Us</NavDropdown.Item>
+                {/* <NavDropdown.Item href="/transactionHistory">Transaction History</NavDropdown.Item> */}
+                <NavDropdown.Item>
+                  <Link to="/contacts">Contact Us</Link>
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4"
                   onClick={this.props.handleLogout}
