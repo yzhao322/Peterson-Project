@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import API from "../../utils/API";
+import {
+  Form,
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  DeleteBtn,
+  Label,
+} from "react-bootstrap";
 
 const AddProduce = () => {
   const [state, setState] = useState({
@@ -33,52 +42,62 @@ const AddProduce = () => {
 
   return (
     <>
-      <h1 style={{ color: "salmon" }}>Add Produce</h1>
-      <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
-        <label htmlFor="name">Name</label>
-        <br />
-        <input
-          type="text"
-          value={state.name}
-          name="name"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label htmlFor="name">Price</label>
-        <br />
-        <input
-          value={state.price}
-          type="number"
-          name="price"
-          min="0"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label htmlFor="name">Inventory</label>
-        <br />
-        <input
-          value={state.inventory}
-          type="number"
-          name="inventory"
-          min="0"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label htmlFor="name">Description</label>
-        <br />
-        <input
-          value={state.description}
-          type="textarea"
-          name="description"
-          onChange={handleChange}
-          required
-        />{" "}
-        <br />
-        <button>Submit</button>
-      </form>
+      <div style={{ marginLeft: "20px" }}>
+        <h1 style={{ color: "salmon" }}>Add Produce</h1>
+        <Form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
+          <div style={{ marginLeft: 5, paddingRight: 5 }}>
+            <label htmlFor="name">Name:</label>
+            <br />
+            <Form.Control
+              type="text"
+              value={state.name}
+              name="name"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <label htmlFor="name" style={{ marginTop: 5 }}>
+              Price:
+            </label>
+            <br />
+            <Form.Control
+              value={state.price}
+              type="number"
+              name="price"
+              min="0"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <label htmlFor="name" style={{ margin: 5 }}>
+              Inventory
+            </label>
+            <br />
+            <Form.Control
+              value={state.inventory}
+              type="number"
+              name="inventory"
+              min="0"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <label htmlFor="name">Description</label>
+            <br />
+            <Form.Control
+              value={state.description}
+              type="textarea"
+              name="description"
+              onChange={handleChange}
+              required
+            />{" "}
+            <br />
+            <Button style={{ margin: 5, background: "green" }}>
+              Add Produce
+            </Button>
+          </div>
+        </Form>
+      </div>
     </>
   );
 };

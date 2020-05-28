@@ -17,30 +17,10 @@ const RemoveProduce = () => {
   useEffect(() => {
     API.getProduce()
       .then((response) => {
-        // console.log(response);
         setState((state) => ({ ...state, produce: response.data }));
-        // setState({
-        //   ...state,
-        //   produce: {
-        //     ...state.produce,
-        //     response,
-        //   },
-        // });
       })
       .catch((err) => console.log(err));
   }, []);
-
-  //   const Remove = (id) => {
-  //     API.removeproduce(id).then(() =>
-  //       setState({
-  //         ...state,
-  //         produce: state.produce.filter((produce) => {
-  //           return produce._id !== produce._id;
-  //           //   _id: id;
-  //         }),
-  //       })
-  //     );
-  //   };
 
   const handleSubmit = async (e) => {
     console.log("keep going", e);
@@ -84,27 +64,27 @@ const RemoveProduce = () => {
   };
 
   return (
-    <ListGroup>
-      <Form onSubmit={handleSubmit}>
+    <div>
+      <h1 style={{ color: "salmon" }}>Update Produce</h1>
+      {/* <ListGroup> */}
+      <Form onSubmit={handleSubmit} style={{ background: "white" }}>
         {state.produce.map(({ _id, name }) => (
           <ListGroupItem style={{ border: "black" }}>
-            <Form.Check type="checkbox" label="add" style={{ border: "black" }}>
-              {name}
-              <Form.Control
-                type="number"
-                name={name}
-                id={_id}
-                onChange={updateProduceCount}
-              />
-            </Form.Check>
-            {/* <div onClick={() => removePost(produce._id)} /> */}
+            {name}
+            <Form.Control
+              type="number"
+              name={name}
+              id={_id}
+              onChange={updateProduceCount}
+            />
           </ListGroupItem>
         ))}
-        <Button type="submit" color="light" style={{ marginBottom: "2rem" }}>
-          Remove from Inventory
+        <Button type="submit" style={{ margin: 5, background: "green" }}>
+          Update Inventory
         </Button>
       </Form>
-    </ListGroup>
+      {/* </ListGroup> */}
+    </div>
   );
 };
 
