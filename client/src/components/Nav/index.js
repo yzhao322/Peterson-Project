@@ -74,10 +74,8 @@ class Navbars extends React.Component {
                 >Shopping Cart</NavDropdown.Item> */}
 
 
-                <NavDropdown.Item>
-                  <div className={this.state.user.title === "Member" ? '' : 'hidden'}>
-                    <Link to="/shopping-cart">NEW SUMMARY</Link>
-                  </div>
+                <NavDropdown.Item className={this.state.user.title === "Member" ? '' : 'hidden'}>
+                  <Link to="/shopping-cart">Shopping Cart</Link>
                 </NavDropdown.Item>
 
 
