@@ -101,6 +101,7 @@ const Order = (props) => {
       type: types.SET_ORDERS,
       payload: state.order
     })
+
   }
 
   return (
