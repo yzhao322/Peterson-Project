@@ -74,11 +74,11 @@ class Navbars extends React.Component {
                 >Shopping Cart</NavDropdown.Item>
 
 
-
-                <div className={this.state.user.title === "Member" ? '' : 'hidden'}>
-                  <Link to="/shopping-cart">NEW SUMMARY</Link>
-                </div>
-
+                <NavDropdown.Item>
+                  <div className={this.state.user.title === "Member" ? '' : 'hidden'}>
+                    <Link to="/shopping-cart">NEW SUMMARY</Link>
+                  </div>
+                </NavDropdown.Item>
 
                 <NavDropdown.Item
                   href="/category"
@@ -143,119 +143,3 @@ class Navbars extends React.Component {
 }
 
 export default Navbars;
-
-
-
-
-
-
-
-// const Navbars = (props) => {
-
-//   //modal - pop up window for log in 
-//   const [modalIsOpen, setModalIsOpen] = useState(false);
-//   const [show, setShow] = useState(false);
-
-//   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
-//   //modal end
-
-//   return (
-//     <Navbar bg="light" expand="lg">
-//       <Navbar.Brand href="/home">Peterson</Navbar.Brand>
-//       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//       <Navbar.Collapse id="basic-navbar-nav">
-//         <Nav className="mr-auto">
-//           <Nav.Link href="/home">Home</Nav.Link>
-//           <Nav.Link href="/product">Product</Nav.Link>
-//           <Nav.Link href="/category">Category</Nav.Link>
-
-//           <UserMenu />
-//           <h4>Status: {props.loggedInStatus} </h4>
-//         </Nav>
-
-//         <Form inline>
-//           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-//           <Button variant="outline-success">Search</Button>
-//           <hr />
-
-//           {/* modal open button */}
-//           <Button onClick={() => { setModalIsOpen(true); handleShow() }}>Login</Button>
-
-//         </Form>
-
-//       </Navbar.Collapse>
-
-//       {/* modal window front end set up - body */}
-//       <Modal isOpen={modalIsOpen} show={show} onHide={handleClose}>
-
-//         <LoginIndex />
-
-//       </Modal>
-//       {/* modal end */}
-
-//     </Navbar>
-//   );
-// }
-
-// export default Navbars;
-
-
-
-// class Navbars extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-
-
-//   render() {
-//   //modal - pop up window for log in 
-//   const [modalIsOpen, setModalIsOpen] = useState(false);
-//   const [show, setShow] = useState(false);
-
-//   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
-//   //modal end
-
-//   return (
-//     <>
-//     <h1>Status: {this.props.loggedInStatus} </h1>
-//     <Navbar bg="light" expand="lg">
-//       <Navbar.Brand href="/home">Peterson</Navbar.Brand>
-//       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//       <Navbar.Collapse id="basic-navbar-nav">
-//         <Nav className="mr-auto">
-//           <Nav.Link href="/home">Home</Nav.Link>
-//           <Nav.Link href="/product">Product</Nav.Link>
-//           <Nav.Link href="/category">Category</Nav.Link>
-
-//           <UserMenu />
-
-//         </Nav>
-
-//         <Form inline>
-//           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-//           <Button variant="outline-success">Search</Button>
-//           <hr />
-
-//           {/* modal open button */}
-//           <Button onClick={() => { setModalIsOpen(true); handleShow() }}>Login</Button>
-
-//         </Form>
-
-//       </Navbar.Collapse>
-
-//       {/* modal window front end set up - body */}
-//       <Modal isOpen={modalIsOpen} show={show} onHide={handleClose}>
-
-//         <LoginIndex />
-
-//       </Modal>
-//       {/* modal end */}
-
-//     </Navbar>
-//     </>
-//   );
-// }
-// }
-// export default Navbars;
