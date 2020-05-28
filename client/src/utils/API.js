@@ -2,8 +2,6 @@ import axios from "axios";
 
 export default {
   postProduce: (data) => axios.post("/api/produces", data),
-
-  saveOrder: (data) => axios.post("/api/orders", data),
   // getProduces: () => axios.get("/api/produces"),
   removeproduce: (id) => axios.delete("/api/produces" + id),
 
@@ -19,6 +17,10 @@ export default {
 
   getProduce: () => axios.get("/api/produces"),
 
-  update: () => axios.get("/api/produces")
+  update: () => axios.get("/api/produces"),
+
+  saveOrder: (data) => axios.post("/api/orders", data),
+
+  getOrder : () => axios.get("/api/orders")
 
 };

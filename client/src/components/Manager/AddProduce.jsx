@@ -19,14 +19,15 @@ const AddProduce = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     API.postProduce(state)
-      .then((response) =>
+      .then((response) => {
+        console.log("z: ", response);
         setState({
           name: "",
           inventory: 0,
           price: 0,
           description: "",
-        })
-      )
+        });
+      })
       .catch((err) => console.warn(err));
   };
 
@@ -36,11 +37,18 @@ const AddProduce = () => {
       <form onSubmit={handleSubmit} style={{ backgroundColor: "white" }}>
         <label htmlFor="name">Name</label>
         <br />
-        <input type="text" name="name" onChange={handleChange} required />
+        <input
+          type="text"
+          value={state.name}
+          name="name"
+          onChange={handleChange}
+          required
+        />
         <br />
         <label htmlFor="name">Price</label>
         <br />
         <input
+          value={state.price}
           type="number"
           name="price"
           min="0"
@@ -51,6 +59,7 @@ const AddProduce = () => {
         <label htmlFor="name">Inventory</label>
         <br />
         <input
+          value={state.inventory}
           type="number"
           name="inventory"
           min="0"
@@ -61,6 +70,7 @@ const AddProduce = () => {
         <label htmlFor="name">Description</label>
         <br />
         <input
+          value={state.description}
           type="textarea"
           name="description"
           onChange={handleChange}
