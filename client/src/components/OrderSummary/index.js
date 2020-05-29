@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Card, ListGroup, Button } from "react-bootstrap";
 import { useProduceContext } from '../../context/ProduceContext'
+import types from '../../context/types'
 import API from "../../utils/API";
 
 function OrderSummary() {
@@ -14,9 +15,10 @@ function OrderSummary() {
   const submitOrder = (e) => {
     e.preventDefault();
     API.saveOrder(finalOrder)
-      .then((response) =>
+      .then((response) => {
         console.log(response)
-      )
+        dispatch({ type: types.CLEAR_ORDERS, payload: [] })
+      })
 
   }
   return (
@@ -45,14 +47,14 @@ function OrderSummary() {
         </Card>
       ))}
       <br></br>
-      <ListGroup>
+      {/* <ListGroup>
         <ListGroup.Item>Subtotal:</ListGroup.Item>
         <ListGroup.Item>Shipping:</ListGroup.Item>
         <ListGroup.Item>Tax:</ListGroup.Item>
         <br></br>
         <ListGroup.Item>Order Total: </ListGroup.Item>
-      </ListGroup>
-      <Button onClick={submitOrder}>Final Submit</Button>
+      </ListGroup> */}
+      <Button onClick={submitOrder} style={{ margin: 5, background: "green" }}>Final Submit</Button>
     </div>
   )
 }
