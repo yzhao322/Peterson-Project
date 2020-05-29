@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log("action: ", action);
   switch (action.type) {
     case types.SET_PRODUCE:
       return {
@@ -18,6 +19,11 @@ const reducer = (state, action) => {
       console.log(action.payload);
       return {
         ...state,
+        order: action.payload,
+      };
+    case types.CLEAR_ORDERS:
+      console.log("CLEAR_ORDERS");
+      return {
         order: action.payload,
       };
     default:
