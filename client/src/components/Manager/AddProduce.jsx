@@ -19,6 +19,7 @@ const AddProduce = () => {
   });
 
   const handleChange = (e) => {
+    console.log("inside handle change");
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -26,6 +27,7 @@ const AddProduce = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log("inside handle");
     e.preventDefault();
     API.postProduce(state)
       .then((response) => {
@@ -92,7 +94,7 @@ const AddProduce = () => {
               required
             />{" "}
             <br />
-            <Button style={{ margin: 5, background: "green" }}>
+            <Button type="submit" style={{ margin: 5, background: "green" }}>
               Add Produce
             </Button>
           </div>
