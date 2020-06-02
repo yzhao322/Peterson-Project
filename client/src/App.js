@@ -6,14 +6,9 @@ import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Navbars from "./components/Nav";
 import Footer from "./components/Footer";
-
-
 import FavoritesList from "./pages/FavoritesList";
-
 // import LoginIndex from "./components/Login";
 // import LoginIndex from "./components/Login";
-
-
 import Product from "./pages/ProductList";
 import Member from "./pages/member";
 import SignUpsuccess from "./pages/signUpsuccess";
@@ -22,7 +17,6 @@ import ManagerTest from "./pages/ManagerTest";
 import TransactionHistory from "./components/TransactionHistory";
 import Contacts from "./components/Contacts";
 // import product from "./pages/Product";
-
 import { ProduceProvider } from './context/ProduceContext'
 
 class App extends React.Component {

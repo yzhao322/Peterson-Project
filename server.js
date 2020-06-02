@@ -39,7 +39,7 @@ app.use("/api/users", users);
 
 const db = require("./config/keys").mongoURI;
 
-mongoose.connect(db, {
+mongoose.connect(process.env.MONGODB_URI || db, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
